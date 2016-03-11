@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<project name="easyguest" default="default" basedir=".">
+    <description>Builds, tests, and runs the project easyguest.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar-with-manifest:    JAR building (if you are using a manifest)
+      -do-jar-without-manifest: JAR building (if you are not using a manifest)
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="easyguest-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+
+    <target name="-post-compile" depends="help">
+        <copy todir="build/classes">
+            <fileset dir="lib/translation" includes="resources_*.properties"/>
+        </copy>
+    </target>
+
+    <target name="-post-jar">
+        <copy todir="dist/lib">
+            <fileset dir="lib" includes="**"/>
+        </copy>
+    </target>
+
+    <target name="help">
+        <taskdef name="jhindexer" classname="org.netbeans.nbbuild.JHIndexer"
+                classpath="build/classes"/>
+        <mkdir dir="build/classes/help/EZHelpSearch"/>
+        <copy todir="build/classes/help">
+            <fileset dir="help"/>
+        </copy>
+        <jhindexer basedir="build/classes/help"
+                db="build/classes/help/EZHelpSearch" jhall="lib-dev/jhall.jar">
+            <include name="**/*.html"/>
+        </jhindexer>
+    </target>
+
+    <target name="schema" depends="compile">
+        <delete quiet="true">
+            <fileset dir="db" includes="**" />
+        </delete>
+        <java classname="org.hibernate.tool.hbm2ddl.SchemaExport" fork="true">
+            <sysproperty key="file.encoding" value="UTF-8"/>
+            <arg value="--create"/>
+            <arg value="--format"/>
+            <arg value="--config=hibernate.cfg.xml"/>
+            <arg value="--output=schema.sql"/>
+            <arg value="--delimiter=;"/>
+            <classpath>
+                <pathelement location="build/classes"/>
+                <fileset dir="lib" includes="**/*.jar"/>
+            </classpath>
+        </java>
+    </target>
+
+    <target name="demo-db" depends="schema">
+        <!--java classname="test.TestSqlDataManager" dir="." fork="true">
+            <classpath>
+                <pathelement location="build/classes"/>
+                <fileset dir="lib" includes="**/*.jar"/>
+            </classpath>
+        </java-->
+    </target>
+
+    <target name="run">
+        <java jar="dist/easyguest.jar" fork="true"/>
+    </target>
+
+    <target name="fixcrlf">
+        <fixcrlf srcdir=".">
+            <include name="**/*.java"/>
+            <include name="**/*.html"/>
+            <include name="**/*.jhm"/>
+            <include name="**/*.hs"/>
+            <include name="**/*.xml"/>
+            <include name="**/*.dtd"/>
+            <include name="**/*.properties"/>
+            <include name="**/*.sql"/>
+            <include name="**/*.txt"/>
+        </fixcrlf>
+    </target>
+
+    <target name="convert">
+        <mkdir dir="cvt"/>
+        <copy todir="cvt" encoding="ISO-8859-1" outputencoding="UTF-8">
+            <fileset dir=".">
+                <include name="**/*.java"/>
+                <include name="**/*.html"/>
+                <include name="**/*.jhm"/>
+                <include name="**/*.hs"/>
+                <include name="**/*.xml"/>
+                <include name="**/*.dtd"/>
+                <include name="**/*.properties"/>
+                <include name="**/*.sql"/>
+                <include name="**/*.txt"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="translate" depends="compile">
+        <java classpath="build/classes" classname="translator.Translator" fork="true">
+            <classpath>
+                <fileset dir=".">
+                    <include name="build/classes"/>
+                    <include name="lib-dev/jaxen-1.1-beta-11.jar"/>
+                </fileset>
+            </classpath>
+            <arg value="de"/>
+            <arg value="en"/>
+            <arg value="fr"/>
+            <arg value="it"/>
+
+        </java>
+    </target>
+
+    <target name="installer-jar" depends="clean,jar,demo-db" description="Build the installer jar">
+        <property file="version-info.properties"/>
+        <taskdef name="izpack" classpath="install/standalone-compiler.jar"
+                classname="com.izforge.izpack.ant.IzPackTask"/>
+        <izpack output="${basedir}/dist/easyguest-install-${version}.jar"
+                installerType="standard"
+                basedir="${basedir}"
+                izPackDir="build/izpack">
+            <config><![CDATA[
+                <installation version="1.0">
+                    <info>
+                        <appname>EasyGuest</appname>
+                        <appversion>@{version}</appversion>
+                        <appsubpath>Easyguest-@{version}</appsubpath>
+                        <authors>
+                            <author name="Denis Trimaille" email="denistrimaille@free.fr"/>
+                            <author name="Maurice Perry" email="maurice@perry.ch"/>
+                        </authors>
+                        <url>http://www.easyguest.com/</url>
+                        <javaversion>1.5</javaversion>
+                    </info>
+                    <variables>
+                        <variable name="app-version" value="@{version}"/>
+                        <variable name="copyright" value="@{copyright}"/>                         
+                        <variable name="DesktopShortcutCheckboxEnabled" value="true"/>
+                        <variable name="InstallerFrame.logfilePath" value="$INSTALL_PATH/easyguest.log"/>
+                    </variables>
+                    <guiprefs resizable="no" width="533" height="400"/>
+                    <locale>
+                        <langpack iso3="eng"/>
+                        <langpack iso3="fra"/>
+                        <langpack iso3="ita"/>
+                        <langpack iso3="deu"/>
+                    </locale>
+                    <resources>
+                        <res id="installer.langsel.img" src="src/images/splashEasyguest_1.01.png"/>                        
+                        <res id="HTMLLicencePanel.licence" src="legal/license.html"/>
+                        <res id="HTMLLicencePanel.licence_eng" src="legal/license.html"/>
+                        <res id="HTMLLicencePanel.licence_fra" src="legal/license_fr.html"/>
+                        <res id="HTMLLicencePanel.licence_ita" src="legal/license_it.html"/>
+                        <res id="HTMLLicencePanel.licence_deu" src="legal/license_de.html"/>
+                        <res id="shortcutSpec.xml" src="install/shortcutSpec_Win.xml" parse="yes" type="xml"/>
+                        <res id="Unix_shortcutSpec.xml" src="install/shortcutSpec_Unix.xml" parse="yes" type="xml"/>                        
+                        <res id="packsLang.xml_eng" src="install/packs_en.xml" type="xml"/>
+                        <res id="packsLang.xml_fra" src="install/packs_fr.xml" type="xml"/>
+                        <res id="packsLang.xml_ita" src="install/packs_it.xml" type="xml"/>
+                        <res id="packsLang.xml_deu" src="install/packs_de.xml" type="xml"/>
+                    </resources>
+                    <panels>
+                        <panel classname="HelloPanel"/>
+                        <panel classname="HTMLLicencePanel"/>
+                        <panel classname="TargetPanel"/>
+                        <panel classname="PacksPanel"/>                        
+                        <panel classname="SummaryPanel"/>
+                        <panel classname="InstallPanel"/>                        
+                        <panel classname="ShortcutPanel"/>
+                        <panel classname="FinishPanel"/>
+                    </panels>
+                    <packs>
+                        <pack id="application" name="Application" required="yes">
+                            <description>EasyGuest application files.</description>
+                            <file targetdir="$INSTALL_PATH" src="dist/easyguest.jar"/>
+                            <fileset targetdir="$INSTALL_PATH" dir="." includes="lib/**"/>                            
+                            <fileset targetdir="$INSTALL_PATH" dir="install" includes="icons/**"/>
+                            <fileset targetdir="$INSTALL_PATH" dir="install" includes="ezguest.properties"/>
+                            <parsable targetfile="$INSTALL_PATH/ezguest.properties" type="javaprop"/>
+                        </pack>         
+                    </packs>
+                    <native type="izpack" name="ShellLink.dll"/>
+                </installation>
+                ]]>
+            </config>
+        </izpack>
+    </target>
+
+    <target name="installer-exe" depends="installer-jar">
+        <chmod perm="ugo+rx">
+            <fileset dir="install/bin">
+                <include name="ld"/>
+                <include name="windres"/>
+            </fileset>
+        </chmod>
+        <taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask"
+                classpath="install/launch4j.jar:install/xstream.jar" />
+        <launch4j>
+            <config headertype="gui" jar="dist/easyguest-install-${version}.jar"
+                    outfile="dist/easyguest-install-${version}.exe"
+                    errtitle="EasyGuest" customprocname="true"
+                    icon="install/icons/ezguest.ico">
+                <jre minVersion="1.5.0"/>
+                <splash file="install/splash.bmp" waitforwindow="true"
+                        timeout="60" timeouterr="true" />
+            </config>
+        </launch4j>
+    </target>
+</project>

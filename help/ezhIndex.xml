@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE helpset
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Index Version 1.0//EN"
+         "./dtd/index_1_0.dtd">
+
+<index version="1.0">
+
+<!-- Symbol --> 
+   <indexitem text="" target=""/>
+   
+<!-- A -->
+    <indexitem text="annulÃ©e" target="overview.reservation"/>   
+    <indexitem text="articles" target="overview.category_articles"/>
+    <indexitem text="" target="rel.contents"/>
+<!-- B -->
+   <indexitem text="barre de rÃ©servation" target="overview.calendar"/>
+   <indexitem text="limites" target="rel.limitations"/>
+<!-- C -->
+
+<!-- D -->
+   <indexitem text="dÃ©filements lents" target="overview.slowscroll">
+       <indexitem text="mois prÃ©cÃ©dent" target="overview.slowscroll"/>
+       <indexitem text="semaine prÃ©cÃ©dente" target="overview.slowscroll"/>
+       <indexitem text="jour prÃ©cÃ©dent" target="overview.slowscroll"/>
+       <indexitem text="jour suivant" target="overview.slowscroll"/>
+       <indexitem text="semaine suivante" target="overview.slowscroll"/>
+       <indexitem text="mois suivant" target="overview.slowscroll"/>
+   </indexitem>
+   <indexitem text="dÃ©filements rapides" target="overview.fastscroll">
+       <indexitem text="mois prÃ©cÃ©dent" target="overview.fastscroll"/>
+       <indexitem text="semaine prÃ©cÃ©dente" target="overview.fastscroll"/>
+       <indexitem text="jour prÃ©cÃ©dent" target="overview.fastscroll"/>
+       <indexitem text="jour suivant" target="overview.fastscroll"/>
+       <indexitem text="semaine suivante" target="overview.fastscroll"/>
+       <indexitem text="mois suivant" target="overview.fastscroll"/>
+   </indexitem>
+
+<!-- E -->
+
+<!-- F -->
+
+<!-- G -->
+
+<!-- H -->
+
+<!-- I -->
+
+<!-- J -->
+
+<!-- K -->
+
+<!-- L -->
+
+<!-- M -->
+
+<!-- N -->
+
+<!-- O -->
+    <indexitem text="occupÃ©e" target="overview.reservation"/>
+<!-- P -->
+
+<!-- Q -->
+    <indexitem text="quittÃ©e" target="overview.reservation"/>
+<!-- R -->
+    <indexitem text="rÃ©servÃ©e" target="overview.reservation"/>
+<!-- S -->
+
+<!-- T -->
+
+<!-- U -->
+
+<!-- V -->
+
+<!-- W -->
+
+<!-- X -->
+
+<!-- Y -->
+
+<!-- Z -->
+
+</index>
+
+

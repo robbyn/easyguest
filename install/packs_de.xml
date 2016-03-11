@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<langpack>
+    <str id="application" txt="Anwendung"/>
+    <str id="application.description" txt="Anwendung Akten"/>
+    <str id="demo-db" txt="Datenbank der Demonstration"/>
+    <str id="demo-db.description" txt="Beispiel der Datenbank"/>
+</langpack>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Toc Version 1.0//EN"
+         "./dtd/toc_1_0.dtd">
+
+<toc version="1.0">
+<tocitem text="Aide EasyGuest" image="openbook">
+
+    <tocitem text="Contenu" image="topic" target="top"/>
+
+    <tocitem text="Version EasyGuest" image="chapTopic" target="rel.release">
+        <tocitem text="Information sur le produit" image="topic" target="rel.contents"/>
+        <tocitem text="Syst&egrave;me requis" image="topic" target="rel.requirements"/>
+        <tocitem text="Installation" image="topic" target="rel.install"/>
+        <tocitem text="Limites d'utilisation" image="topic" target="rel.limitations"/>
+    </tocitem>
+
+    <tocitem text="Pr&eacute;sentation du syst&egrave;me" image="chapTopic" target="over.overview">
+        <tocitem text="Introduction" image="topic" target="over.intro"/>
+        <tocitem text="Caract&eacute;ristiques" image="topic" target="over.features"/>
+        <tocitem text="Vues" image="chapTopic" target="over.views">
+            <tocitem text="R&eacute;sum&eacute;" image="topic" target="over.summary"/>
+            <tocitem text="Plan d'occupation" image="chapTopic" target="over.map">	        
+	        <tocitem text="P&eacute;riodes" image="topic" target="over.periods"/>
+                <tocitem text="Calendrier" image="topic" target="over.calendar">
+                    <tocitem text="Mois/Ann&eacute;e" image="blueListBull" target="over.calendar.monthyear"/>
+                    <tocitem text="Jour du mois" image="blueListBull" target="over.calendar.daysofmonth"/>
+                    <tocitem text="Jour de semaine" image="blueListBull" target="over.calendar.daysofweek"/>                        
+                </tocitem>
+		<tocitem text="Filtre" image="topic" target="over.filter"/>
+                <tocitem text="Description" image="topic" target="over.description"/>                    
+	        <tocitem text="Barre de r&eacute;servation" image="chapTopic" target="over.bar">
+                    <tocitem text="R&eacute;servation dialogue" image="chapTopic" target="over.reservation">
+	                <tocitem text="Status" image="topic" target="over.status">
+		            <tocitem text="R&eacute;serv&eacute;e" image="blueListBull" target="over.status.reserved"/>
+                            <tocitem text="Occup&eacute;e" image="blueListBull" target="over.status.occupied"/>
+                            <tocitem text="Quitt&eacute;e" image="blueListBull" target="over.status.free"/>
+                            <tocitem text="Annul&eacute;e" image="blueListBull" target="over.status.annulment"/>
+                        </tocitem>
+                        <tocitem text="Cr&eacute;er" image="topic" target="over.create"/>
+                        <tocitem text="Chercher" image="topic" target="over.search_name"/>
+                        <tocitem text="Modifier" image="topic" target="over.modify"/>
+                    </tocitem>
+                </tocitem>    
+		<tocitem text="D&eacute;filements lents" image="topic" target="over.slowscroll"/>
+		<tocitem text="D&eacute;filements rapides" image="topic" target="over.fastscroll"/>
+		<tocitem text="L&eacute;gendes" image="topic" target="over.legends"/>
+            </tocitem>
+	    <tocitem text="Factures" image="chapTopic" target="over.invoice">
+	        <tocitem text="Chercher" image="topic" target="over.search_invoice">
+                    <tocitem text="Nom" image="blueListBull" target="over.search_invoice.name"/>
+                    <tocitem text="Num&eacute;ro Id" image="blueListBull" target="over.search_invoice.numid"/>
+                    <tocitem text="Num&eacute;ro facture" image="blueListBull" target="over.search_invoice.num"/>
+                    <tocitem text="Dates" image="blueListBull" target="over.search_invoice.dates"/>
+                </tocitem>
+		<tocitem text="Imprimer" image="topic" target="over.print_invoice">
+		    <tocitem text="Pr&eacute;visualisation" image="blueListBull" target="over.print_invoice.preview"/>
+                </tocitem>
+		<tocitem text="G&eacute;n&eacute;ralit&eacute;s" image="topic" target="over.generalities"/>
+	        <tocitem text="D&eacute;compte" image="topic" target="over.deduction">
+                    <tocitem text="Occupation de chambre" image="topic" target="over.occupiedrooms"/>
+                    <tocitem text="Autres articles" image="topic" target="over.otherarticles"/>
+                </tocitem>
+            </tocitem>
+        </tocitem>
+        <tocitem text="Menu" image="chapTopic" target="over.menu">
+            <tocitem text="Fichier" image="topic" target="over.file">
+	        <tocitem text="Pr&eacute;visualisation" image="blueListBull" target="over.file.preview"/>
+	        <tocitem text="Imprimer" image="blueListBull" target="over.file.print"/>
+ 		<tocitem text="Quitter" image="blueListBull" target="over.file.toquit"/>
+	    </tocitem>
+            <tocitem text="Edition" image="topic" target="over.edit">
+	        <tocitem text="Copier" image="blueListBull" target="over.edit.copy"/>
+	        <tocitem text="Couper" image="blueListBull" target="over.edit.cut"/>
+	        <tocitem text="Coller" image="blueListBull" target="over.edit.past"/>
+	        <tocitem text="Supprimer" image="blueListBull" target="over.edit.delete"/>
+	    </tocitem>
+            <tocitem text="Configuration" image="chapTopic" target="over.config">
+      	        <tocitem text="Types/Chambres" image="topic" target="over.types_rooms">
+                    <tocitem text="Type : Nom" image="blueListBull" target="over.types_rooms.type_name"/>
+                    <tocitem text="Type : Prix" image="blueListBull" target="over.types_rooms.type_price"/>
+                    <tocitem text="Type : El&eacute;ments" image="blueListBull" target="over.types_rooms.type_elements"/>
+                    <tocitem text="Chambre : Num&eacute;ro" image="blueListBull" target="over.types_rooms.room_number"/>
+                    <tocitem text="Chambre : Type" image="blueListBull" target="over.types_rooms.room_type"/>
+                </tocitem>
+	        <tocitem text="Tarifs/P&eacute;riodes" image="topic" target="over.tariffs_periods">
+                    <tocitem text="Tarif : Nom" image="blueListBull" target="over.tariffs_periods.tariff_name"/>
+                    <tocitem text="Tarif : Majoration" image="blueListBull" target="over.tariffs_periods.tariff_majoration"/>
+                    <tocitem text="Tarif : Couleur" image="blueListBull" target="over.tariffs_periods.tariff_color"/>
+                    <tocitem text="P&eacute;riode : Date d&eacute;but" image="blueListBull" target="over.tariffs_periods.period_datebegin"/>
+                    <tocitem text="P&eacute;riode : Date fin" image="blueListBull" target="over.tariffs_periods.period_dateend"/>
+                    <tocitem text="P&eacute;riode : Tarif" image="blueListBull" target="over.tariffs_periods.period_tariff"/>
+                </tocitem>
+                <tocitem text="Cat&eacute;gories/Articles" image="topic" target="over.categories_articles">
+                    <tocitem text="Cat&eacute;gorie : Nouvelle" image="blueListBull" target="over.categories_articles.new"/>
+                    <tocitem text="Cat&eacute;gorie : Supprimer" image="blueListBull" target="over.categories_articles.delete"/>
+                    <tocitem text="Article : Caract&egrave;re" image="blueListBull" target="over.categories_articles.character"/>
+                    <tocitem text="Article : Code" image="blueListBull" target="over.categories_articles.code"/>
+                    <tocitem text="Article : Description" image="blueListBull" target="over.categories_articles.describe"/>
+                    <tocitem text="Article : Prix" image="blueListBull" target="over.categories_articles.price"/>                
+               </tocitem>                 
+               <tocitem text="Hotel" image="topic" target="over.hotel"/>
+	    </tocitem>
+	    <tocitem text="Aide" image="topic" target="over.help">
+ 	        <tocitem text="Contenu" image="blueListBull" target="over.help.content"/>
+	        <tocitem text="Qu'est-ce que c'est ?" image="blueListBull" target="over.help.whatisit"/>
+	        <tocitem text="Introduction &agrave;  easyGuest" image="blueListBull" target="over.help.intro_ezguest"/>
+            </tocitem>
+            <tocitem text="A propos d'easyGuest" image="topic" target="over.ezguest">
+	        <tocitem text="A propos" image="blueListBull" target="over.ezguest.about"/>
+		<tocitem text="D&eacute;tail" image="blueListBull" target="over.ezguest.detail"/>
+	    </tocitem>
+        </tocitem>
+    </tocitem>
+    <tocitem text="Informations sur l'aide" image="chapTopic" target="loc.info_help">
+        <tocitem text="Pr&eacute;sentation de l'aide" image="topic" target="loc.present_help"/>
+        <tocitem text="Localisation de fichier" image="topic" target="loc.helpset"/>
+        <tocitem text="Recherche de donn&eacute;e" image="topic" target="loc.search"/>
+        <tocitem text="S&eacute;lection de police" image="topic" target="loc.font"/>
+        <tocitem text="Imprimer l'aide" image="topic" target="loc.print"/>
+    </tocitem>
+</tocitem>
+</toc>

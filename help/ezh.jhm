@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp Map Version 1.0//EN"
+         "./dtd/map_1_0.dtd">
+
+<map version="1.0">
+	<mapID target="toplevelfolder" url="images/toplevel.gif" />
+        <mapID target="chapTopic" url="images/chapTopic.gif" />
+	<mapID target="topic" url="images/topic.gif" />
+        <mapID target="blueListBull" url="images/blueListBull.gif" />
+	<mapID target="tocspacer1" url="images/tocspacer1.gif" />
+	<mapID target="openbook" url="images/openbook.gif" />
+
+	<mapID target="top" url="ezh.html" />
+	<mapID target="rel.release" url="release/release.html" />
+        <mapID target="rel.contents" url="release/contents.html" />	
+	<mapID target="rel.requirements" url="release/requirements.html" />
+        <mapID target="rel.install" url="release/install.html" />
+        <mapID target="rel.limitations" url="release/limitations.html" />
+	<mapID target="over.overview" url="overview/overview.html" />
+	<mapID target="over.intro" url="overview/intro.html" />
+	<mapID target="over.features" url="overview/features.html" />
+	<mapID target="over.views" url="overview/views.html" />
+	<mapID target="over.summary" url="overview/summary.html" />
+	<mapID target="over.map" url="overview/map.html" />
+        <mapID target="over.calendar" url="overview/calendar.html" />
+        <mapID target="over.periods" url="overview/periods.html" />
+        <mapID target="over.filter" url="overview/filter.html" />
+        <mapID target="over.description" url="overview/description.html" />
+        <mapID target="over.bar" url="overview/bar.html" />
+        <mapID target="over.slowscroll" url="overview/slowscroll.html" />
+        <mapID target="over.fastscroll" url="overview/fastscroll.html" />
+        <mapID target="over.legends" url="overview/legends.html" />
+        <mapID target="over.reservation" url="overview/reservation.html" />
+        <mapID target="over.status" url="overview/status.html" />
+        <mapID target="over.create" url="overview/create.html" /> 
+        <mapID target="over.search_name" url="overview/search_name.html" />               
+        <mapID target="over.modify" url="overview/modify.html" />                              
+        <mapID target="over.invoice" url="overview/invoice.html" />
+        <mapID target="over.search_invoice" url="overview/search_invoice.html" />	
+        <mapID target="over.print_invoice" url="overview/print_invoice.html" />
+        <mapID target="over.generalities" url="overview/generalities.html" />	
+        <mapID target="over.deduction" url="overview/deduction.html" />
+        <mapID target="over.occupiedrooms" url="overview/occupiedrooms.html" />
+        <mapID target="over.otherarticles" url="overview/otherarticles.html" />
+        <mapID target="over.menu" url="overview/menu.html" />        
+	<mapID target="over.file" url="overview/file.html" />
+	<mapID target="over.edit" url="overview/edit.html" />
+	<mapID target="over.config" url="overview/config.html" />
+	<mapID target="over.types_rooms" url="overview/types_rooms.html" />
+        <mapID target="over.tariffs_periods" url="overview/tariffs_periods.html" />
+	<mapID target="over.categories_articles" url="overview/categories_articles.html" />
+        <mapID target="over.hotel" url="overview/hotel.html" />
+	<mapID target="over.help" url="overview/help.html" />
+	<mapID target="over.ezguest" url="overview/ezguest.html" />
+        <mapID target="loc.info_help" url="locale/info_help.html" />
+	<mapID target="loc.present_help" url="locale/present_help.html" />
+        <mapID target="loc.helpset" url="locale/helpset.html" />
+	<mapID target="loc.search" url="locale/search.html" />
+	<mapID target="loc.font" url="locale/font.html" />
+	<mapID target="loc.print" url="locale/print.html" />
+
+<!-- Index IDs -->
+        <mapID target="over.description.monthyear" url="overview/description.html#monthyear" />
+        <mapID target="over.description.daysofmonth" url="overview/description.html#daysofmonth" />
+        <mapID target="over.description.daysofweek" url="overview/description.html#daysofweek" />
+	<mapID target="over.status.reserved" url="overview/status.html#reserved" />
+        <mapID target="over.status.occupied" url="overview/status.html#occupied" />
+        <mapID target="over.status.free" url="overview/status.html#free" />
+        <mapID target="over.status.annulment" url="overview/status.html#annulment" />
+        <mapID target="over.search_invoice.name" url="overview/search_invoice.html#name" />	
+        <mapID target="over.search_invoice.numid" url="overview/search_invoice.html#numid" />
+        <mapID target="over.search_invoice.num" url="overview/search_invoice.html#num" />
+        <mapID target="over.search_invoice.dates" url="overview/search_invoice.html#dates" />
+        <mapID target="over.print_invoice" url="overview/print_invoice.html#preview" />
+	<mapID target="over.file.preview" url="overview/file.html#preview" />
+	<mapID target="over.file.print" url="overview/file.html#print" />
+	<mapID target="over.file.toquit" url="overview/file.html#toquit" />
+	<mapID target="over.edit.copy" url="overview/edit.html#copy" />
+	<mapID target="over.edit.cut" url="overview/edit.html#cut" />
+	<mapID target="over.edit.past" url="overview/edit.html#past" />
+	<mapID target="over.edit.delete" url="overview/edit.html#delete" />
+        <mapID target="over.tariffs_periods.tariff_name" url="overview/tariffs_periods.html#tariff_name" />
+        <mapID target="over.tariffs_periods.tariff_majoration" url="overview/tariffs_periods.html#tariff_majoration" />
+        <mapID target="over.tariffs_periods.tariff_color" url="overview/tariffs_periods.html#tariff_color" />	
+        <mapID target="over.tariffs_periods.period_datebegin" url="overview/tariffs_periods.html#period_datebegin" />
+        <mapID target="over.tariffs_periods.period_dateend" url="overview/tariffs_periods.html#period_dateend" />
+        <mapID target="over.tariffs_periods.period_tariff" url="overview/tariffs_periods.html#period_tariff" />	    
+        <mapID target="over.help.content" url="overview/help.html#content" />
+	<mapID target="over.help.whatisit" url="overview/help.html#whatisit" />
+	<mapID target="over.help.intro_ezguest" url="overview/help.html#intro_ezguest" />
+	<mapID target="over.ezguest.about" url="overview/ezguest.html#about" />
+        <mapID target="over.ezguest.detail" url="overview/ezguest.html#detail" />
+</map>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<shortcuts>
+    <skipIfNotSupported />
+    <programGroup defaultName="Easyguest" location="applications"/> 
+    <shortcut
+        name="Easyguest"
+        programGroup="yes"
+        desktop="yes"
+        applications="no"
+        startMenu="no"
+        startup="no"
+        target="$JAVA_HOME/bin/javaw.exe"
+        commandLine="-jar &quot;$INSTALL_PATH/easyguest.jar&quot;"
+        workingDirectory="$INSTALL_PATH"     
+        iconFile="$INSTALL_PATH\icons\ezguest.ico"
+        iconIndex="0"
+        initialState="noShow">   
+        <createForPack name="Application"/>     
+    </shortcut>
+
+    <shortcut
+        name="Easyguest Uninstaller"
+        programGroup="yes"
+        desktop="no"
+        applications="no"
+        startMenu="no"
+        startup="no"
+        target="$INSTALL_PATH\Uninstaller\uninstaller.jar"
+        commandLine=""
+        iconFile="$INSTALL_PATH\icons\ezguest.ico"
+        iconIndex="31" 
+        description="This uninstalls Easyguest">         
+        <createForPack name="Application" />
+    </shortcut>   
+</shortcuts>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC '-//JasperReports//DTD Report Design//EN' 'http://jasperreports.sourceforge.net/dtds/jasperreport.dtd'>
+
+<jasperReport name='invoice'
+        leftMargin='20' rightMargin='20' topMargin='30' bottomMargin='40'>
+    <reportFont name='small' isDefault='true' fontName='sansserif' size='9'/>
+    <reportFont name='normal' isDefault='true' fontName='sansserif' size='12'/>
+    <reportFont name='title' isDefault='true' fontName='sansserif' size='16'/>
+    <parameter name='sess' class='session.EasyguestSession'/>
+    <field name='this' class='java.lang.Object'/>
+    <field name='id' class='java.lang.Integer'/>
+    <field name='status' class='java.lang.Integer'/>
+    <field name='dateCreated' class='java.lang.String'/>
+    <field name='hotel' class='java.lang.Object'/>
+    <field name='customer' class='java.lang.Object'/>
+    <field name='reservations' class='java.lang.Object'/>
+    <field name='items' class='java.lang.Object'/>
+    <variable name='invoice' class='data.Invoice'>
+        <variableExpression>
+            (data.Invoice)$F{this}
+        </variableExpression>
+    </variable>
+    <variable name='hotel' class='data.Hotel'>
+        <variableExpression>
+            (data.Hotel)$F{hotel}
+        </variableExpression>
+    </variable>
+    <variable name='customer' class='data.Customer'>
+        <variableExpression>
+            (data.Customer)$F{customer}
+        </variableExpression>
+    </variable>
+    <variable name='reservations' class='java.util.Collection'>
+        <variableExpression>
+            (java.util.Collection)$F{reservations}
+        </variableExpression>
+    </variable>
+    <variable name='items' class='java.util.Collection'>
+        <variableExpression>
+            (java.util.Collection)$F{items}
+        </variableExpression>
+    </variable>
+    <detail>
+        <band height='350'>
+            <textField>
+                <reportElement x='34' y='0' width='250' height='300'/>
+                <textElement>
+                    <font reportFont='small'/>
+                </textElement>
+                <textFieldExpression>
+                    ($V{hotel}.getName() == null ? "" : ($V{hotel}.getName() + "\n")) +
+                    ($V{hotel}.getAddress1() == null ? "" : ($V{hotel}.getAddress1() + "\n")) +
+                    ($V{hotel}.getAddress2() == null ? "" : ($V{hotel}.getAddress2() + "\n")) +                    
+                    ($V{hotel}.getZip() == null ? "" : ($V{hotel}.getZip() + " ")) +
+                    ($V{hotel}.getCity() == null ? "" : ($V{hotel}.getCity() + "\n")) +
+                    ($V{hotel}.getState() == null ? "" : ($V{hotel}.getState() + " ")) +
+                    ($V{hotel}.getCountry() == null ? "" : ($V{hotel}.getCountry() + "\n")) +
+                    ($V{hotel}.getTelephone() == null ? "" : ("tÃ©l.: " + $V{hotel}.getTelephone() + "\n")) +
+                    ($V{hotel}.getFax() == null ? "" : ("fax.: " + $V{hotel}.getFax() + "\n")) +
+                    ($V{hotel}.getEmail() == null ? "" : ("email: " + $V{hotel}.getEmail() + "\n"))
+                </textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x='310' y='120' width='245' height='100'/>
+                <textElement>
+                    <font reportFont='normal'/>
+                </textElement>
+                <textFieldExpression>
+                    ($V{customer}.getTitlePerson() == null ? "" : ($V{customer}.getTitlePerson() + " ")) +
+                    ($V{customer}.getFirstName() == null ? "" : ($V{customer}.getFirstName() + " ")) +
+                    ($V{customer}.getLastName() == null ? "" : ($V{customer}.getLastName() + "\n")) +
+                    ($V{customer}.getCompany() == null ? "" : ($V{customer}.getCompany() + "\n")) +
+                    ($V{customer}.getAddress1() == null ? "" : ($V{customer}.getAddress1() + "\n")) +
+                    ($V{customer}.getAddress2() == null ? "" : ($V{customer}.getAddress2() + "\n")) +
+                    ($V{customer}.getZip() == null ? "" : ($V{customer}.getZip() + " ")) +
+                    ($V{customer}.getCity() == null ? "" : ($V{customer}.getCity() + "\n")) +
+                    ($V{customer}.getState() == null ? "" : ($V{customer}.getState() + " ")) +
+                    ($V{customer}.getCountry() == null ? "" : ($V{customer}.getCountry() + "\n"))
+                </textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x='310' y='220' width='245' height='20'/>
+                <textElement>
+                    <font reportFont='normal'/>
+                </textElement>
+                <textFieldExpression>
+                    ($V{hotel}.getCity() == null ? "" : ($V{hotel}.getCity() + ", ")) + "le "
+                            + util.Util.date2str(util.Util.today())
+                </textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x='34' y='250' width='521' height='30'/>
+                <textElement>
+                    <font reportFont='title'/>
+                </textElement>
+                <textFieldExpression>
+                    "Facture N°" + $F{id}
+                </textFieldExpression>
+            </textField>
+            <subreport isUsingCache="true">
+                <reportElement x="34" y="300" width="521" height="20" backcolor="#99CCFF" positionType="Float" isRemoveLineWhenBlank="true"/>
+                <parametersMapExpression>
+                    new HashMap($P{REPORT_PARAMETERS_MAP})
+                </parametersMapExpression>
+                <dataSourceExpression>
+                    new reports.CollectionDataSource($V{reservations})
+                </dataSourceExpression>
+                <subreportExpression class="java.net.URL">
+                    getClass().getResource("/reports/reservations.jasper")
+                </subreportExpression>
+            </subreport>
+            <subreport isUsingCache="true">
+                <reportElement x="34" y='330' width="521" height="20" backcolor="#99CCFF" positionType="Float" isRemoveLineWhenBlank="true"/>
+                <parametersMapExpression>
+                    new HashMap($P{REPORT_PARAMETERS_MAP})
+                </parametersMapExpression>
+                <dataSourceExpression>
+                    new reports.CollectionDataSource($V{items})
+                </dataSourceExpression>
+                <subreportExpression class="java.net.URL">
+                    getClass().getResource("/reports/items.jasper")
+                </subreportExpression>
+            </subreport>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height='20'>
+            <textField>
+                <reportElement x='0' y='0' width='555' height='20'/>
+                <textElement textAlignment='Right'>
+                    <font reportFont='normal'/>
+                </textElement>
+                <textFieldExpression>
+                    "page " + $V{PAGE_NUMBER} + "/" + $V{PAGE_COUNT}
+                </textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+    <summary>
+        <band height='45'>
+            <staticText>
+                <reportElement x='274' y='10' width='120' height='25'/>
+                <textElement textAlignment='Right'>
+                    <font reportFont='title' isBold='true'/>
+                </textElement>
+                <text>
+                    Total facture:
+                </text>
+            </staticText>
+            <textField>
+                <reportElement x='394' y='10' width='120' height='25'/>
+                <textElement textAlignment='Right'>
+                    <font reportFont='title' isBold='true'/>
+                </textElement>
+                <textFieldExpression>
+                    util.Util.dbl2str($P{sess}.getAmount($V{invoice}))
+                </textFieldExpression>
+            </textField>
+        </band>
+    </summary>
+</jasperReport>
