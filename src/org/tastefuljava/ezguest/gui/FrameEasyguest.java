@@ -306,7 +306,7 @@ public class FrameEasyguest extends javax.swing.JFrame {
                 conf.setInt("main.top", this.getY());
                 conf.store();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOG.error(e.getMessage(), e);
             }
         }
 
@@ -319,7 +319,7 @@ public class FrameEasyguest extends javax.swing.JFrame {
                 conf.setInt("main.height", this.getHeight());
                 conf.store();
             } catch (IOException e) {
-                e.printStackTrace();
+                LOG.error(e.getMessage(), e);
             }
         }
     }//GEN-LAST:event_formComponentResized
@@ -328,7 +328,7 @@ public class FrameEasyguest extends javax.swing.JFrame {
         try {
             new TranslationDialog(this).setVisible(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_translationActionPerformed
@@ -368,8 +368,9 @@ public class FrameEasyguest extends javax.swing.JFrame {
                     getPanel(name);
                 }
                 layout.show(panelContentRubric, name);
-            } catch (Exception e) {
-                e.printStackTrace();
+            } catch (NoSuchMethodException | InstantiationException
+                    | IllegalAccessException | InvocationTargetException e) {
+                LOG.error(e.getMessage(), e);
                 JOptionPane.showMessageDialog(this, e.getMessage());
             }
         }
@@ -379,8 +380,9 @@ public class FrameEasyguest extends javax.swing.JFrame {
         try {
             InvoicePanel panel = (InvoicePanel)getPanel("invoice");
             panel.print();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | InstantiationException
+                | IllegalAccessException | InvocationTargetException e) {
+            LOG.error(e.getMessage(), e);
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_itemPrintActionPerformed
@@ -389,8 +391,9 @@ public class FrameEasyguest extends javax.swing.JFrame {
         try {
             InvoicePanel panel = (InvoicePanel)getPanel("invoice");
             panel.preview();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NoSuchMethodException | InstantiationException
+                | IllegalAccessException | InvocationTargetException e) {
+            LOG.error(e.getMessage(), e);
             JOptionPane.showMessageDialog(this, e.getMessage());
         }
     }//GEN-LAST:event_itemPreviewActionPerformed
@@ -403,7 +406,6 @@ public class FrameEasyguest extends javax.swing.JFrame {
         // Add your handling code here:
     }//GEN-LAST:event_menuFileActionPerformed
 
-    /** Exit the Application */
     private void exitForm(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_exitForm
         quit();
     }//GEN-LAST:event_exitForm
