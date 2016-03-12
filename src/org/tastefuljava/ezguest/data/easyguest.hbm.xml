@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field" default-lazy="false" package="data">
+  <class name="org.tastefuljava.ezguest.data.Article" table="ARTICLE">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="CODE" length="32" name="code"/>
+    <property column="LABEL" length="250" name="label"/>
+    <property column="PRICE" name="price"/>
+    <property column="KEY_CODE" name="keyCode"/>
+    <property column="KEY_MODIFIERS" name="keyModifiers"/>
+    <many-to-one column="CATEGORY_ID" insert="false" name="category" update="false"/>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.ArticleCategory" table="ARTICLE_CATEGORY">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="NAME" length="250" name="name"/>
+    <many-to-one column="PARENT_ID" insert="false" name="parent" update="false"/>
+    <set cascade="all,delete-orphan" lazy="true" name="subCategories">
+      <key column="PARENT_ID"/>
+      <one-to-many class="ArticleCategory"/>
+    </set>
+    <set cascade="all,delete-orphan" lazy="true" name="articles">
+      <key column="CATEGORY_ID"/>
+      <one-to-many class="Article"/>
+    </set>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Customer" table="CUSTOMER">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="TITLE" length="32" name="titlePerson"/>
+    <property column="COMPANY" length="250" name="company"/>
+    <property column="LASTNAME" length="64" name="lastName"/>
+    <property column="FIRSTNAME" length="64" name="firstName"/>
+    <property column="ADDRESS1" length="250" name="address1"/>
+    <property column="ADDRESS2" length="250" name="address2"/>
+    <property column="ZIP" length="32" name="zip"/>
+    <property column="CITY" length="64" name="city"/>
+    <property column="STATE" length="64" name="state"/>
+    <property column="COUNTRY" length="64" name="country"/>
+    <property column="TELEPHONE" length="64" name="telephone"/>
+    <property column="MOBILE" length="64" name="mobile"/>
+    <property column="FAX" length="64" name="fax"/>
+    <property column="EMAIL" length="250" name="email"/>
+    <set inverse="true" lazy="true" name="invoices">
+      <key column="CUSTOMER_ID"/>
+      <one-to-many class="Invoice"/>
+    </set>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Hotel" table="HOTEL">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="RATING" length="32" name="rate"/>
+    <property column="CHAIN" length="64" name="chain"/>
+    <property column="NAME" length="250" name="name"/>
+    <property column="ADDRESS1" length="250" name="address1"/>
+    <property column="ADDRESS2" length="250" name="address2"/>
+    <property column="ZIP" length="32" name="zip"/>
+    <property column="CITY" length="64" name="city"/>
+    <property column="STATE" length="64" name="state"/>
+    <property column="COUNTRY" length="64" name="country"/>
+    <property column="TELEPHONE" length="64" name="telephone"/>
+    <property column="FAX" length="64" name="fax"/>
+    <property column="EMAIL" length="250" name="email"/>
+    <property column="WEB" length="250" name="web"/>
+    <property column="LOGO" name="logoBytes" type="blob"/>
+    <map cascade="all-delete-orphan" lazy="true" name="rooms">
+      <key column="HOTEL_ID"/>
+      <map-key column="NUMBER" type="int"/>
+      <one-to-many class="Room"/>
+    </map>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Invoice" table="INVOICE">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="CREATION_DATE" name="dateCreated" type="date"/>
+    <many-to-one column="CUSTOMER_ID" name="customer"/>
+    <many-to-one column="HOTEL_ID" name="hotel"/>
+    <list cascade="all,delete-orphan" lazy="true" name="items">
+      <key column="INVOICE_ID"/>
+      <list-index column="POS"/>
+      <one-to-many class="InvoiceItem"/>
+    </list>
+    <list cascade="all,delete-orphan" lazy="true" name="reservations">
+      <key column="INVOICE_ID"/>
+      <list-index column="POS"/>
+      <one-to-many class="Reservation"/>
+    </list>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.InvoiceItem" table="INVOICE_ITEM">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="PRICE" name="price"/>
+    <property column="QUANTITY" name="quantity"/>
+    <many-to-one column="INVOICE_ID" insert="false" lazy="false" name="invoice" update="false"/>
+    <many-to-one column="ARTICLE_ID" name="article"/>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Period" table="PERIOD">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="FROM_DATE" name="fromDate" type="date"/>
+    <property column="TO_DATE" name="toDate" type="date"/>
+    <many-to-one column="TARIFF_ID" name="tariff"/>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Reservation" table="RESERVATION">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="FROM_DATE" name="fromDate" type="date"/>
+    <property column="TO_DATE" name="toDate" type="date"/>
+    <property column="STATUS" name="status"/>
+    <many-to-one column="INVOICE_ID" insert="false" lazy="false" name="invoice" update="false"/>
+    <many-to-one column="ROOM_ID" name="room"/>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Room" table="ROOM">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <many-to-one column="HOTEL_ID" name="hotel"/>
+    <property column="NUMBER" insert="false" name="number" update="false"/>
+    <many-to-one column="TYPE_ID" name="type"/>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.RoomType" table="ROOM_TYPE">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="NAME" length="250" name="name"/>
+    <property column="DESCRIPTION" name="description" type="text"/>
+    <property column="BASE_PRICE" name="basePrice"/>
+    <set lazy="true" name="rooms">
+      <key column="TYPE_ID"/>
+      <one-to-many class="Room"/>
+    </set>
+  </class>
+  <class name="org.tastefuljava.ezguest.data.Tariff" table="TARIFF">
+    <id column="ID" name="id" type="int">
+      <generator class="native"/>
+    </id>
+    <property column="NAME" length="250" name="name"/>
+    <property column="FACTOR" name="factor"/>
+    <property access="property" column="COLOR" name="intColor"/>
+    <set lazy="false" name="periods">
+      <key column="TARIFF_ID"/>
+      <one-to-many class="Period"/>
+    </set>
+  </class>
+</hibernate-mapping>
