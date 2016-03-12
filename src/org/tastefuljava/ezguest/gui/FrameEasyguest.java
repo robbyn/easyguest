@@ -144,7 +144,7 @@ public class FrameEasyguest extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         menuItemAbout = new javax.swing.JMenuItem();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources"); // NOI18N
         setTitle(bundle.getString("main.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {

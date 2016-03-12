@@ -329,7 +329,7 @@ public class ReservationDialog extends javax.swing.JDialog {
         ok = new javax.swing.JButton();
         cancel = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources"); // NOI18N
         jLabel7.setText(bundle.getString("reservation.invoice")); // NOI18N
 
         setTitle(bundle.getString("dialog.reservation.title")); // NOI18N

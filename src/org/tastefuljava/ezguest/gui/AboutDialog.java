@@ -107,7 +107,7 @@ public class AboutDialog extends javax.swing.JDialog {
         dirinstall = new javax.swing.JLabel();
         diruser = new javax.swing.JLabel();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("resources"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources"); // NOI18N
         setTitle(bundle.getString("dialog.about.title")); // NOI18N
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -119,7 +119,7 @@ public class AboutDialog extends javax.swing.JDialog {
 
         tabAbout.setLayout(new java.awt.GridBagLayout());
 
-        labeleZGuest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/splashEasyguest_1.01.png"))); // NOI18N
+        labeleZGuest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/splashEasyguest_1.01.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.insets = new java.awt.Insets(5, 10, 5, 10);
@@ -309,9 +309,9 @@ public class AboutDialog extends javax.swing.JDialog {
         tabDetail.setLayout(new java.awt.GridBagLayout());
 
         labelInfo.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
-        labelInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ezguest_64.png"))); // NOI18N
+        labelInfo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/ezguest_64.png"))); // NOI18N
         labelInfo.setText(bundle.getString("dialog.about.tabdetail.info")); // NOI18N
-        labelInfo.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ezguest_64.png"))); // NOI18N
+        labelInfo.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/ezguest_64.png"))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.insets = new java.awt.Insets(0, 10, 5, 10);

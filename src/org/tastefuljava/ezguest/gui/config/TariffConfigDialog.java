@@ -137,7 +137,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         tariffperiodsClosePanel = new javax.swing.JPanel();
         close = new javax.swing.JButton();
 
-        setTitle(java.util.ResourceBundle.getBundle("resources").getString("tariff.dialog.title"));
+        setTitle(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariff.dialog.title"));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -159,7 +159,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         formTariffsPanel.setMinimumSize(new java.awt.Dimension(291, 90));
         formTariffsPanel.setPreferredSize(new java.awt.Dimension(291, 90));
-        nameLabel.setText(java.util.ResourceBundle.getBundle("resources").getString("tariffperiods.dialog.tariff.name"));
+        nameLabel.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariffperiods.dialog.tariff.name"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 11);
@@ -173,7 +173,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 0, 0, 11);
         formTariffsPanel.add(name, gridBagConstraints);
 
-        factorLabel.setText(java.util.ResourceBundle.getBundle("resources").getString("tariffperiods.dialog.tariff.factor"));
+        factorLabel.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariffperiods.dialog.tariff.factor"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 12, 0, 11);
@@ -186,7 +186,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 11);
         formTariffsPanel.add(factor, gridBagConstraints);
 
-        colorLabel.setText(java.util.ResourceBundle.getBundle("resources").getString("tariffperiods.dialog.tariff.color"));
+        colorLabel.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariffperiods.dialog.tariff.color"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 12, 11, 11);
@@ -201,7 +201,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         buttonsTariffPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        newTariffButton.setText(java.util.ResourceBundle.getBundle("resources").getString("tariffperiods.dialog.tariffs.button.new"));
+        newTariffButton.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariffperiods.dialog.tariffs.button.new"));
         newTariffButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newTariffButtonActionPerformed(evt);
@@ -210,14 +210,14 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         buttonsTariffPanel.add(newTariffButton);
 
-        delTariffButton.setText(java.util.ResourceBundle.getBundle("resources").getString("tariffperiods.dialog.tariffs.button.delete"));
+        delTariffButton.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariffperiods.dialog.tariffs.button.delete"));
         buttonsTariffPanel.add(delTariffButton);
 
         formTariffPanel.add(buttonsTariffPanel, java.awt.BorderLayout.SOUTH);
 
         tariffsPanel.add(formTariffPanel, java.awt.BorderLayout.SOUTH);
 
-        tariffperiodsTabbedPane.addTab(java.util.ResourceBundle.getBundle("resources").getString("tariff.dialog.tab.tariffs"), tariffsPanel);
+        tariffperiodsTabbedPane.addTab(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariff.dialog.tab.tariffs"), tariffsPanel);
 
         periodsPanel.setLayout(new java.awt.BorderLayout());
 
@@ -233,7 +233,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         formPeriodsPanel.setMinimumSize(new java.awt.Dimension(291, 90));
         formPeriodsPanel.setPreferredSize(new java.awt.Dimension(291, 90));
-        fromdateLabel.setText(java.util.ResourceBundle.getBundle("resources").getString("periods.dialog.period.fromdate"));
+        fromdateLabel.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("periods.dialog.period.fromdate"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 11);
@@ -246,7 +246,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(12, 0, 0, 11);
         formPeriodsPanel.add(fromdate, gridBagConstraints);
 
-        todateLabel.setText(java.util.ResourceBundle.getBundle("resources").getString("periods.dialog.period.todate"));
+        todateLabel.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("periods.dialog.period.todate"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 12, 0, 11);
@@ -259,7 +259,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 11);
         formPeriodsPanel.add(todate, gridBagConstraints);
 
-        tariffLabel.setText(java.util.ResourceBundle.getBundle("resources").getString("periods.dialog.period.tariff"));
+        tariffLabel.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("periods.dialog.period.tariff"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(5, 12, 11, 11);
@@ -276,7 +276,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         buttonsPeriodPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
 
-        newPeriodButton.setText(java.util.ResourceBundle.getBundle("resources").getString("periods.dialog.periods.button.new"));
+        newPeriodButton.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("periods.dialog.periods.button.new"));
         newPeriodButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newPeriodButtonActionPerformed(evt);
@@ -285,7 +285,7 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         buttonsPeriodPanel.add(newPeriodButton);
 
-        delPeriodButton.setText(java.util.ResourceBundle.getBundle("resources").getString("periods.dialog.periods.button.delete"));
+        delPeriodButton.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("periods.dialog.periods.button.delete"));
         delPeriodButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 delPeriodButtonActionPerformed(evt);
@@ -298,14 +298,14 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
         periodsPanel.add(formPeriodPanel, java.awt.BorderLayout.SOUTH);
 
-        tariffperiodsTabbedPane.addTab(java.util.ResourceBundle.getBundle("resources").getString("tariff.dialog.tab.periods"), periodsPanel);
+        tariffperiodsTabbedPane.addTab(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("tariff.dialog.tab.periods"), periodsPanel);
 
         getContentPane().add(tariffperiodsTabbedPane, java.awt.BorderLayout.CENTER);
 
         tariffperiodsClosePanel.setLayout(new java.awt.GridBagLayout());
 
         tariffperiodsClosePanel.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        close.setText(java.util.ResourceBundle.getBundle("resources").getString("dialog.close"));
+        close.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("dialog.close"));
         close.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 closeActionPerformed(evt);

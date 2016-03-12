@@ -30,7 +30,7 @@ public class RubricListCellRenderer extends DefaultListCellRenderer {
         ImageIcon icon = iconCache.get(name);
         if (icon == null) {
             String descr = Util.getResource("main.tab." + name);
-            URL url = RubricListCellRenderer.class.getResource("/images/" + name + ".png");
+            URL url = RubricListCellRenderer.class.getResource("/org/tastefuljava/ezguest/images/" + name + ".png");
             icon = new ImageIcon(url, descr);
             iconCache.put(name, icon);
         }

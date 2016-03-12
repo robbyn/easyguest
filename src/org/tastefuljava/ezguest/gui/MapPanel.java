@@ -127,7 +127,7 @@ public class MapPanel extends JPanel {
             }
         });
 
-        openReservation.setText(java.util.ResourceBundle.getBundle("resources").getString("map.menu.open-reservation"));
+        openReservation.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.menu.open-reservation"));
         openReservation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openReservationActionPerformed(evt);
@@ -139,7 +139,7 @@ public class MapPanel extends JPanel {
         reservationPopup.add(jSeparator1);
 
         reservationStateGroup.add(stateReserved);
-        stateReserved.setText(java.util.ResourceBundle.getBundle("resources").getString("reservation.status.reserved"));
+        stateReserved.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("reservation.status.reserved"));
         stateReserved.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stateReservedActionPerformed(evt);
@@ -149,7 +149,7 @@ public class MapPanel extends JPanel {
         reservationPopup.add(stateReserved);
 
         reservationStateGroup.add(stateOccupied);
-        stateOccupied.setText(java.util.ResourceBundle.getBundle("resources").getString("reservation.status.occupied"));
+        stateOccupied.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("reservation.status.occupied"));
         stateOccupied.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stateOccupiedActionPerformed(evt);
@@ -159,7 +159,7 @@ public class MapPanel extends JPanel {
         reservationPopup.add(stateOccupied);
 
         reservationStateGroup.add(stateReleased);
-        stateReleased.setText(java.util.ResourceBundle.getBundle("resources").getString("reservation.status.released"));
+        stateReleased.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("reservation.status.released"));
         stateReleased.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stateReleasedActionPerformed(evt);
@@ -169,7 +169,7 @@ public class MapPanel extends JPanel {
         reservationPopup.add(stateReleased);
 
         reservationStateGroup.add(stateCanceled);
-        stateCanceled.setText(java.util.ResourceBundle.getBundle("resources").getString("reservation.status.canceled"));
+        stateCanceled.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("reservation.status.canceled"));
         stateCanceled.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 stateCanceledActionPerformed(evt);
@@ -192,7 +192,7 @@ public class MapPanel extends JPanel {
 
         panelButtonsCalendarView.setLayout(new java.awt.GridBagLayout());
 
-        buttonBackMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backmonth.png")));
+        buttonBackMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/backmonth.png")));
         buttonBackMonth.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonBackMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +204,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(buttonBackMonth, gridBagConstraints);
 
-        buttonBackWeek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backweek.png")));
+        buttonBackWeek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/backweek.png")));
         buttonBackWeek.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonBackWeek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,7 +216,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(buttonBackWeek, gridBagConstraints);
 
-        buttonBackDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/backday.png")));
+        buttonBackDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/backday.png")));
         buttonBackDay.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonBackDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +228,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(buttonBackDay, gridBagConstraints);
 
-        comboBoxMonth.setToolTipText(java.util.ResourceBundle.getBundle("resources").getString("map.combobox.calendar.month"));
+        comboBoxMonth.setToolTipText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.combobox.calendar.month"));
         comboBoxMonth.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboBoxMonthItemStateChanged(evt);
@@ -239,7 +239,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(comboBoxMonth, gridBagConstraints);
 
-        txtFieldZoneYear.setToolTipText(java.util.ResourceBundle.getBundle("resources").getString("map.textfield.calendar.year"));
+        txtFieldZoneYear.setToolTipText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.textfield.calendar.year"));
         txtFieldZoneYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFieldZoneYearActionPerformed(evt);
@@ -250,7 +250,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(txtFieldZoneYear, gridBagConstraints);
 
-        buttonNextDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nextday.png")));
+        buttonNextDay.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/nextday.png")));
         buttonNextDay.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonNextDay.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,7 +262,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(buttonNextDay, gridBagConstraints);
 
-        buttonNextWeek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nextweek.png")));
+        buttonNextWeek.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/nextweek.png")));
         buttonNextWeek.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonNextWeek.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,7 +274,7 @@ public class MapPanel extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         panelButtonsCalendarView.add(buttonNextWeek, gridBagConstraints);
 
-        buttonNextMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/nextmonth.png")));
+        buttonNextMonth.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/tastefuljava/ezguest/images/nextmonth.png")));
         buttonNextMonth.setMargin(new java.awt.Insets(0, 0, 0, 0));
         buttonNextMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -291,7 +291,7 @@ public class MapPanel extends JPanel {
         labelReserved.setBackground(new java.awt.Color(255, 204, 153));
         labelReserved.setFont(new java.awt.Font("Dialog", 0, 12));
         labelReserved.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelReserved.setText(java.util.ResourceBundle.getBundle("resources").getString("map.legend.reserved"));
+        labelReserved.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.legend.reserved"));
         labelReserved.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         labelReserved.setMaximumSize(new java.awt.Dimension(77, 17));
         labelReserved.setMinimumSize(new java.awt.Dimension(77, 17));
@@ -302,7 +302,7 @@ public class MapPanel extends JPanel {
         labelOccupied.setBackground(new java.awt.Color(255, 102, 102));
         labelOccupied.setFont(new java.awt.Font("Dialog", 0, 12));
         labelOccupied.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelOccupied.setText(java.util.ResourceBundle.getBundle("resources").getString("map.legend.occupied"));
+        labelOccupied.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.legend.occupied"));
         labelOccupied.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         labelOccupied.setMaximumSize(new java.awt.Dimension(77, 17));
         labelOccupied.setMinimumSize(new java.awt.Dimension(77, 17));
@@ -313,7 +313,7 @@ public class MapPanel extends JPanel {
         labelCanceled.setBackground(new java.awt.Color(255, 255, 255));
         labelCanceled.setFont(new java.awt.Font("Dialog", 0, 12));
         labelCanceled.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCanceled.setText(java.util.ResourceBundle.getBundle("resources").getString("map.legend.canceled"));
+        labelCanceled.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.legend.canceled"));
         labelCanceled.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         labelCanceled.setMaximumSize(new java.awt.Dimension(77, 17));
         labelCanceled.setMinimumSize(new java.awt.Dimension(77, 17));
@@ -324,7 +324,7 @@ public class MapPanel extends JPanel {
         labelReleased.setBackground(new java.awt.Color(204, 255, 255));
         labelReleased.setFont(new java.awt.Font("Dialog", 0, 12));
         labelReleased.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelReleased.setText(java.util.ResourceBundle.getBundle("resources").getString("map.legend.released"));
+        labelReleased.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("map.legend.released"));
         labelReleased.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         labelReleased.setMaximumSize(new java.awt.Dimension(77, 17));
         labelReleased.setMinimumSize(new java.awt.Dimension(77, 17));

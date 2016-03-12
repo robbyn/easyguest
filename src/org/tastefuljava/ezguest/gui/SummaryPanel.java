@@ -179,21 +179,21 @@ public class SummaryPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(12, 12, 0, 11);
         add(dateToday, gridBagConstraints);
 
-        labelYesterday.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.yesterday"));
+        labelYesterday.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.yesterday"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(11, 5, 0, 0);
         add(labelYesterday, gridBagConstraints);
 
-        labelToday.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.today"));
+        labelToday.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.today"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.insets = new java.awt.Insets(11, 5, 0, 0);
         add(labelToday, gridBagConstraints);
 
-        labelTomorrow.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.tomorrow"));
+        labelTomorrow.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.tomorrow"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -201,7 +201,7 @@ public class SummaryPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(11, 5, 0, 11);
         add(labelTomorrow, gridBagConstraints);
 
-        labelFreeRooms.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.freerooms"));
+        labelFreeRooms.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.freerooms"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -228,7 +228,7 @@ public class SummaryPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 11);
         add(labelTomorrowNumFR, gridBagConstraints);
 
-        labelOccupiedRooms.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.occupied"));
+        labelOccupiedRooms.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.occupied"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -258,7 +258,7 @@ public class SummaryPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 11);
         add(labelTomorrowNumOR, gridBagConstraints);
 
-        labelRateOccupation.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.occupancyratio"));
+        labelRateOccupation.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.occupancyratio"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
@@ -288,7 +288,7 @@ public class SummaryPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(5, 5, 0, 11);
         add(labelTomorrowRO, gridBagConstraints);
 
-        labelArrivalToday.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.todayarrivals"));
+        labelArrivalToday.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.todayarrivals"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -296,7 +296,7 @@ public class SummaryPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(11, 12, 0, 11);
         add(labelArrivalToday, gridBagConstraints);
 
-        labelDepartureToday.setText(java.util.ResourceBundle.getBundle("resources").getString("summary.todaydepartures"));
+        labelDepartureToday.setText(java.util.ResourceBundle.getBundle("org.tastefuljava.ezguest.resources").getString("summary.todaydepartures"));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.REMAINDER;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
