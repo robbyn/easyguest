@@ -14,7 +14,7 @@ import org.tastefuljava.ezguest.util.Util;
 
 @SuppressWarnings("serial")
 public class MapPanel extends JPanel {
-    private static final Log log = LogFactory.getLog(MapPanel.class);
+    private static final Log LOG = LogFactory.getLog(MapPanel.class);
 
     private final EasyguestSession sess;
     private Reservation reservation = null;

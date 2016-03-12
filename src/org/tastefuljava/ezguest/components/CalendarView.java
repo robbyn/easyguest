@@ -19,7 +19,6 @@ import java.awt.FontMetrics;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -30,14 +29,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JViewport;
 import javax.swing.Scrollable;
 import javax.swing.SwingConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 @SuppressWarnings("serial")
 public class CalendarView extends JComponent implements Scrollable,
                                                 MouseListener, MouseMotionListener {
-    private static final Log LOG = LogFactory.getLog(CalendarView.class);
-
     private int cellWidth = 22;
     private int cellHeight = 18;
     private int headerHeight = 36;
