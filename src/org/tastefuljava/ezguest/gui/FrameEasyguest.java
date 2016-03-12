@@ -58,6 +58,7 @@ public class FrameEasyguest extends javax.swing.JFrame {
     }
 
     private void initialize(Configuration conf1) throws HeadlessException {
+        pack();
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int width = conf1.getInt("main.width", size.width*4/5);
         int height = conf1.getInt("main.height", size.height*4/5);
@@ -76,7 +77,6 @@ public class FrameEasyguest extends javax.swing.JFrame {
             top = size.height-height;
         }
         setBounds(left, top, width, height);
-        pack();
     }
 
     private void createHelp() {
