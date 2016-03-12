@@ -1,25 +1,14 @@
-/*
- * InvoiceTableModel.java
- *
- * Created on 27 January 2003, 10:34
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import org.tastefuljava.ezguest.data.Customer;
 import org.tastefuljava.ezguest.data.Invoice;
 import java.util.List;
 import org.tastefuljava.ezguest.session.EasyguestSession;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class InvoiceTableModel extends AbstractTableModel {
     public static final int COLUMN_CUSTOMER    = 0;
@@ -28,9 +17,9 @@ public class InvoiceTableModel extends AbstractTableModel {
     public static final int COLUMN_AMOUNT      = 3;
     private static final int COLUMN_COUNT      = 4;
 
-    private EasyguestSession sess;
-    private List<Invoice> list = new ArrayList<Invoice>();
-    private List<Double> amounts = new ArrayList<Double>();
+    private final EasyguestSession sess;
+    private final List<Invoice> list = new ArrayList<>();
+    private final List<Double> amounts = new ArrayList<>();
 
     public InvoiceTableModel(EasyguestSession sess) {
         this.sess = sess;
@@ -73,10 +62,12 @@ public class InvoiceTableModel extends AbstractTableModel {
         }
     }
 
+    @Override
     public int getColumnCount() {
         return COLUMN_COUNT;
     }
 
+    @Override
     public int getRowCount() {
         return list.size();
     }
@@ -85,6 +76,7 @@ public class InvoiceTableModel extends AbstractTableModel {
         return list.get(row);
     }
 
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_CUSTOMER:
@@ -99,13 +91,14 @@ public class InvoiceTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Invoice inv = getInvoice(rowIndex);
         switch (columnIndex) {
             case COLUMN_CUSTOMER:
                 return customerText(inv.getCustomer());
             case COLUMN_ID:
-                return new Integer(inv.getId());
+                return inv.getId();
             case COLUMN_DATECREATED:
                 return Util.date2str(inv.getDateCreated());
             case COLUMN_AMOUNT:
@@ -119,7 +112,7 @@ public class InvoiceTableModel extends AbstractTableModel {
         if (cust == null) {
             return "";
         } else {
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             if (!Util.isBlank(cust.getLastName())) {
                 buf.append(' ');
                 buf.append(cust.getLastName());

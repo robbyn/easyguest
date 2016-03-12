@@ -1,16 +1,9 @@
-/*
- * MapPanel.java
- *
- * Created on 03 November 2002, 12:42
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import org.tastefuljava.ezguest.components.CalendarUpperLeftCorner;
 import org.tastefuljava.ezguest.components.CalendarUpperRightCorner;
 import org.tastefuljava.ezguest.data.Reservation;
 import java.util.Date;
-import java.awt.Color;
 import org.tastefuljava.ezguest.session.EasyguestSession;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
@@ -19,15 +12,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- * @author  Maurice Perry
- * @author  Denis Trimaille
- */
 @SuppressWarnings("serial")
 public class MapPanel extends JPanel {
-    private static Log log = LogFactory.getLog(MapPanel.class);
+    private static final Log log = LogFactory.getLog(MapPanel.class);
 
-    private EasyguestSession sess;
+    private final EasyguestSession sess;
     private Reservation reservation = null;
     private boolean initialized = false;   
 
@@ -57,8 +46,7 @@ public class MapPanel extends JPanel {
                 labelReleased.getBackground());        
     }
 
-    
-    public void updateMonthYear() {
+    private void updateMonthYear() {
         Date firstDate = calendarView.getFirstDate();
         int month = Util.month(firstDate);
         int year = Util.year(firstDate);

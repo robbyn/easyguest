@@ -1,8 +1,3 @@
-/*
- * TypeCellEditor.java
- *
- * Created on 2 december 2002, 13:49
- */
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.session.EasyguestSession;
@@ -13,16 +8,12 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.JComboBox;
 import org.tastefuljava.ezguest.data.RoomType;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class TypeCellEditor extends AbstractCellEditor
         implements TableCellEditor { 
-    private JComboBox typeComboBox;
-    private TypeComboBoxRenderer typeComboBoxRenderer;
-    private TypeComboBoxModel typeComboBoxModel;  
+    private final JComboBox typeComboBox;
+    private final TypeComboBoxRenderer typeComboBoxRenderer;
+    private final TypeComboBoxModel typeComboBoxModel;  
     
     public TypeCellEditor(EasyguestSession sess, 
         RoomTypeTableModel roomTypeModel ) {
@@ -33,6 +24,7 @@ public class TypeCellEditor extends AbstractCellEditor
         typeComboBox.setRenderer(typeComboBoxRenderer);        
     }
     
+    @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
             boolean isSelected, int row, int column) {
         if (value instanceof JComboBox) {               
@@ -41,8 +33,8 @@ public class TypeCellEditor extends AbstractCellEditor
         return typeComboBox;
     }
 
+    @Override
     public Object getCellEditorValue() {
         return typeComboBox.getSelectedItem();
     }            
-    
 }

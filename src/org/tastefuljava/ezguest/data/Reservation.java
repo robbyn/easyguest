@@ -1,18 +1,7 @@
-
-
-/*
- * Reservation.java
- *
- * Created on 02 December 2002, 17:18
- */
-
 package org.tastefuljava.ezguest.data;
 
 import java.util.Date;
 
-/**
- * @author  Maurice Perry
- */
 public class Reservation {
     public static final int STATUS_RESERVED = 0;
     public static final int STATUS_OCCUPIED = 1;

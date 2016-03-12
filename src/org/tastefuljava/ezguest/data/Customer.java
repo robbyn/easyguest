@@ -1,17 +1,8 @@
-/*
- * Customer.java
- *
- * Created on 23 June 2002, 17:28
- */
-
 package org.tastefuljava.ezguest.data;
+
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- *
- * @author  maurice
- */
 public class Customer {
     private int id;
     private String titlePerson;
@@ -28,7 +19,7 @@ public class Customer {
     private String mobile;
     private String fax;
     private String email;
-    private Set<Invoice> invoices = new HashSet<Invoice>();
+    private final Set<Invoice> invoices = new HashSet<>();
 
     public int getId() {
         return id;

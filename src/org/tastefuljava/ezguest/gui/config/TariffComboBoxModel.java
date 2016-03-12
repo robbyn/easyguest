@@ -1,9 +1,3 @@
-/*
- * TariffComboBoxModel.java
- *
- * Created on 30 November 2002, 17:57
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.Tariff;
@@ -15,34 +9,39 @@ import javax.swing.ComboBoxModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-/**
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class TariffComboBoxModel extends AbstractListModel
         implements ComboBoxModel, TableModelListener {
     private Tariff selection = null;
-    private List<Tariff> tariffs = new ArrayList<Tariff>();
-    private TariffTableModel tariffModel;
+    private final List<Tariff> tariffs = new ArrayList<>();
+    private final TariffTableModel tariffModel;
     
     public TariffComboBoxModel(EasyguestSession sess, TariffTableModel tariffModel) {
         this.tariffModel = tariffModel;
         tariffs.addAll(sess.getExtent(Tariff.class));
-        tariffModel.addTableModelListener(this);
+        initialize(tariffModel);
     }
 
+    private void initialize(TariffTableModel tariffModel1) {
+        tariffModel1.addTableModelListener(this);
+    }
+
+    @Override
     public int getSize() {
         return tariffs.size();
     }
 
+    @Override
     public Object getElementAt(int index) {
         return tariffs.get(index);
     }
 
+    @Override
     public Object getSelectedItem() {
         return selection;
     }
 
+    @Override
     public void setSelectedItem(Object anItem) {
         selection = null;
         for (Tariff t: tariffs) {
@@ -74,6 +73,7 @@ public class TariffComboBoxModel extends AbstractListModel
         }
     }
 
+    @Override
     public void tableChanged(TableModelEvent e) {
         switch (e.getType()) {
             case TableModelEvent.DELETE:

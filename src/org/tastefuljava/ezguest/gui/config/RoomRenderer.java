@@ -1,9 +1,3 @@
-/*
- * RoomRenderer.java
- *
- * Created on 1 december 2002, 17:39
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.RoomType;
@@ -13,20 +7,17 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 
-/**
- *
- * @author  denis
- */
 public class RoomRenderer implements TableCellRenderer {
     public static final int COLUMN_NUMBER  = 0;
     public static final int COLUMN_TYPE  = 1;
 
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public RoomRenderer() {
        label.setOpaque(true);
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
            boolean isSelected, boolean hasFocus, int rowIndex, int columnIndex) {
         if (isSelected) {
@@ -50,7 +41,8 @@ public class RoomRenderer implements TableCellRenderer {
                     label.setText("");
                 } else {
                     RoomType roomType = (RoomType)value;
-                    label.setText(roomType.getName() + " (" + roomType.getBasePrice() + ")");
+                    label.setText(roomType.getName()
+                            + " (" + roomType.getBasePrice() + ")");
                 }
                 return label;
         }

@@ -1,9 +1,3 @@
-/*
- * RoomTypeTable.java
- *
- * Created on 18 January 2003, 00:17
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import java.awt.Component;
@@ -12,16 +6,13 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.event.TableModelEvent;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class RoomTypeTable extends JTable {
 
     public RoomTypeTable() {
     }
 
+    @Override
     public void tableChanged(TableModelEvent e) {
         super.tableChanged(e);
         switch (e.getType()) {

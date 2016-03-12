@@ -1,9 +1,3 @@
-/*
- * RoomTableModel.java
- *
- * Created on 01 december 2002, 17:39
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.Room;
@@ -14,37 +8,25 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import org.tastefuljava.ezguest.session.EasyguestSession;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class RoomTableModel extends AbstractTableModel {
     public static final int COLUMN_NUMBER  = 0;
     public static final int COLUMN_TYPE  = 1;
 
-    private EasyguestSession sess;
-    private RoomType roomType;
-    private List<Room> rooms = new ArrayList<Room>();
+    private final EasyguestSession sess;
+    private final List<Room> rooms = new ArrayList<>();
 
     public RoomTableModel(EasyguestSession sess) {
         this.sess = sess;
         rooms.addAll(sess.getExtent(Room.class));
     }
 
-    private void setType(RoomType value) {
-        roomType = value;
-        rooms.clear();
-        if (roomType != null) {
-            rooms.addAll(roomType.getRooms());
-        }
-        fireTableDataChanged();
-    }
-
+    @Override
     public int getColumnCount() {
         return 2;
     }
 
+    @Override
     public int getRowCount() {
         return rooms.size()+1;
     }
@@ -53,6 +35,7 @@ public class RoomTableModel extends AbstractTableModel {
         return index < rooms.size() ? rooms.get(index) : null;
     }
     
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_NUMBER:
@@ -63,6 +46,7 @@ public class RoomTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex >= rooms.size()) {
             return null;
@@ -70,13 +54,14 @@ public class RoomTableModel extends AbstractTableModel {
         Room room = rooms.get(rowIndex);
         switch (columnIndex) {
             case COLUMN_NUMBER:
-                return new Integer(room.getNumber());
+                return room.getNumber();
             case COLUMN_TYPE:
                 return room.getType();
         }
         return null;
     }
 
+    @Override
     public Class getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case COLUMN_NUMBER:
@@ -87,10 +72,12 @@ public class RoomTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }
 
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         boolean isNew = rowIndex >= rooms.size();
         Room room;
@@ -101,7 +88,7 @@ public class RoomTableModel extends AbstractTableModel {
             } else {
                 room = new Room();
                 room.setNumber(001);
-                room.setType(roomType);
+                room.setType(null);
             }
             switch (columnIndex) {
                 case COLUMN_NUMBER:

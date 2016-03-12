@@ -1,5 +1,6 @@
 package org.tastefuljava.ezguest.reports;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Iterator;
@@ -22,6 +23,7 @@ public class CollectionDataSource implements JRDataSource {
         this(Arrays.asList(array == null ? new Object[0] : array));
     }
 
+    @Override
     public boolean next() throws JRException {
         if (iterator == null || !iterator.hasNext()) {
             return false;
@@ -31,6 +33,7 @@ public class CollectionDataSource implements JRDataSource {
         }
     }
 
+    @Override
     public Object getFieldValue(JRField field) throws JRException {
         if ("this".equals(field.getName())) {
             return current;
@@ -57,7 +60,8 @@ public class CollectionDataSource implements JRDataSource {
             }
             try {
                 return method.invoke(current);
-            } catch (Exception e) {
+            } catch (IllegalAccessException | IllegalArgumentException
+                    | InvocationTargetException e) {
                 throw new JRException("Exception in getter of " + name, e);
             }
         }

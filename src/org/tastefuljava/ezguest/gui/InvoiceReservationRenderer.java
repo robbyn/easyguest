@@ -1,35 +1,25 @@
-/*
- * InvoiceReservationRenderer.java
- *
- * Created on 02 February 2003, 12:48
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import java.util.Date;
-import java.awt.Font;
 import java.awt.Component;
 import javax.swing.JTable;
 import javax.swing.JLabel;
 import javax.swing.table.TableCellRenderer;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  Maurice Perry
- */
 public class InvoiceReservationRenderer implements TableCellRenderer {
     public static final int COLUMN_FROMDATE = InvoiceReservationTableModel.COLUMN_FROMDATE;
     public static final int COLUMN_TODATE = InvoiceReservationTableModel.COLUMN_TODATE;
     public static final int COLUMN_ROOMNUMBER = InvoiceReservationTableModel.COLUMN_ROOMNUMBER;
     public static final int COLUMN_AMOUNT = InvoiceReservationTableModel.COLUMN_AMOUNT;
 
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public InvoiceReservationRenderer() {
         label.setOpaque(true);
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
         if (isSelected) {

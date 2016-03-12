@@ -1,34 +1,26 @@
-/*
- * RuleCalendar.java
- *
- * Created on 7 janvier 2003, 17:28
- */
-
 package org.tastefuljava.ezguest.components;
 
 import org.tastefuljava.ezguest.data.Room;
-import org.w3c.dom.Element;
 import org.tastefuljava.ezguest.util.Util;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.util.Collection;
-import java.util.Iterator;
 import javax.swing.JComponent;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class CalendarRowHeader extends JComponent {
     private CalendarView kV;
 
     public CalendarRowHeader(CalendarView calendarView) {
         this.kV = calendarView;
-        this.setToolTipText("");
+        initialize();
     }
 
+    private void initialize() {
+        setToolTipText("");
+    }
+
+    @Override
     public String getToolTipText(MouseEvent event) {
         int row = event.getY()/(kV.getCellHeight()+1);
         Room rooms[] = kV.getRooms();
@@ -36,31 +28,24 @@ public class CalendarRowHeader extends JComponent {
             return super.getToolTipText(event);
         }
         Room room = rooms[row];
-        StringBuffer buf = new StringBuffer();
-        buf.append(Util.format("room.tooltip.number",
-                new Integer(room.getNumber())));
+        StringBuilder buf = new StringBuilder();
+        buf.append(Util.format("room.tooltip.number", room.getNumber()));
         buf.append('\n');
         buf.append(Util.format("room.tooltip.type", room.getType().getName()));
         buf.append('\n');
         buf.append(Util.format("room.tooltip.price",
-                new Double(room.getType().getBasePrice())));
-        /*
-        Collection col = room.getType().getElements();
-        for (Iterator it = col.iterator(); it.hasNext(); ) {
-            Element elm = (Element)it.next();
-            buf.append('\n');
-            buf.append(elm.getName());
-        }
-         */
+                room.getType().getBasePrice()));
         return buf.toString();
     }
 
+    @Override
     public Dimension getPreferredSize() {
         Dimension dim = kV.getPreferredSize();
         dim.width = 6*kV.getCellWidth();
         return dim;
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         int width = getWidth();
         int height = getHeight();
@@ -91,7 +76,7 @@ public class CalendarRowHeader extends JComponent {
     }
 
     private String roomToString(Room room) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         buf.append(room.getNumber());
         if (kV.getShowRoomPrice() || kV.getShowRoomType()) {
             buf.append(" (");

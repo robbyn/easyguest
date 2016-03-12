@@ -1,9 +1,3 @@
-/*
- * EasyguestSession.java
- *
- * Created on 09 December 2002, 15:16
- */
-
 package org.tastefuljava.ezguest.session;
 
 import org.tastefuljava.ezguest.data.Period;
@@ -34,9 +28,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- * @author  Maurice Perry
- */
 public class EasyguestSession {
     private static EasyguestSession instance;
 
@@ -166,26 +157,29 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public final <T> T merge(T obj) {
-        return (T)pm.merge(obj);
+        @SuppressWarnings("unchecked")
+        T result = (T)pm.merge(obj);
+        return result;
     }
 
-    @SuppressWarnings("unchecked")
     public final <T> List<T> getExtent(Class<T> clazz) {
         try {
             String s = "from " + clazz.getName();
             Query qry = pm.createQuery(s);
-            return (List<T>)qry.list();
+            @SuppressWarnings("unchecked")
+            List<T> result = (List<T>)qry.list();
+            return result;
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     public final <T> T getObjectById(Class<T> clazz, Serializable id) {
         try {
-            return (T)pm.load(clazz, id);
+            @SuppressWarnings("unchecked")
+            T result = (T)pm.load(clazz, id);
+            return result;
         } catch (ObjectNotFoundException e) {
             return null;
         } catch (HibernateException e) {
@@ -198,24 +192,19 @@ public class EasyguestSession {
             Query qry = pm.createQuery("from Period as p"
                     + " where p.fromDate<=:d and p.toDate>=:d");
             qry.setDate("d", new java.sql.Date(date.getTime()));
-            Iterator it = qry.list().iterator();
-            if (it.hasNext()) {
-                return (Period)it.next();
-            } else {
-                return null;
-            }
+            return (Period)qry.uniqueResult();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Period[] getPeriods(Date fromDate, Date toDate) {
         try {
             Query qry = pm.createQuery("from Period as p"
                     + " where p.toDate>=:a and p.fromDate<=:b");
             qry.setDate("a", new java.sql.Date(fromDate.getTime()));
             qry.setDate("b", new java.sql.Date(toDate.getTime()));
+            @SuppressWarnings("unchecked")
             Collection<Period> col = (Collection<Period>)qry.list();
             return col.toArray(new Period[col.size()]);
         } catch (HibernateException e) {
@@ -223,13 +212,13 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Reservation[] getReservations(Date fromDate, Date toDate) {
         try {
             Query qry = pm.createQuery("from Reservation as r"
                     + " where r.toDate>=:a and r.fromDate<=:b");
             qry.setDate("a", new java.sql.Date(fromDate.getTime()));
             qry.setDate("b", new java.sql.Date(toDate.getTime()));
+            @SuppressWarnings("unchecked")
             Collection<Reservation> col = (Collection<Reservation>)qry.list();
             return col.toArray(new Reservation[col.size()]);
         } catch (HibernateException e) {
@@ -248,8 +237,7 @@ public class EasyguestSession {
         for (Iterator it = invoice.getReservations().iterator(); it.hasNext(); ) {
             amount += getAmount((Reservation)it.next(), periods);
         }
-        for (Iterator it = invoice.getItems().iterator(); it.hasNext(); ) {
-            InvoiceItem item = (InvoiceItem)it.next();
+        for (InvoiceItem item : invoice.getItems()) {
             amount += item.getAmount();
         }
         return round(amount);
@@ -302,8 +290,7 @@ public class EasyguestSession {
     private Period[] getPeriods(Invoice invoice) {
         Date fromDate = null;
         Date toDate = null;
-        for (Iterator it = invoice.getReservations().iterator(); it.hasNext(); ) {
-            Reservation res = (Reservation)it.next();
+        for (Reservation res : invoice.getReservations()) {
             if (fromDate == null || fromDate.after(res.getFromDate())) {
                 fromDate = res.getFromDate();
             }
@@ -317,12 +304,12 @@ public class EasyguestSession {
         return getPeriods(fromDate, toDate);
     }
 
-    @SuppressWarnings("unchecked")
     public Customer[] getCustomers(String str) {
         try {
             Query qry = pm.createQuery("from Customer as c"
                     + " where c.lastName like :s or c.company like :s");
             qry.setString("s", str + "%");
+            @SuppressWarnings("unchecked")
             Collection<Customer> col = (Collection<Customer>)qry.list();
             return col.toArray(new Customer[col.size()]);
         } catch (HibernateException e) {
@@ -330,7 +317,6 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Customer[] getCustomers(String firstName, String lastName,
             String company) {
         try {
@@ -341,6 +327,7 @@ public class EasyguestSession {
             qry.setString("f", firstName + "%");
             qry.setString("l", lastName + "%");
             qry.setString("c", company + "%");
+            @SuppressWarnings("unchecked")
             Collection<Customer> col = (Collection<Customer>)qry.list();
             return col.toArray(new Customer[col.size()]);
         } catch (HibernateException e) {
@@ -350,13 +337,12 @@ public class EasyguestSession {
 
     public Invoice getInvoice(int id) {
         try {
-            return (Invoice)pm.load(Invoice.class, new Integer(id));
+            return (Invoice)pm.load(Invoice.class, id);
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Invoice[] getInvoices(int roomNumber) {
         try {
             Query qry = pm.createQuery(
@@ -364,6 +350,7 @@ public class EasyguestSession {
                     + " where r.room.number=:roomNumber"
                     + " order by r.invoice.dateCreated desc");
             qry.setInteger("roomNumber", roomNumber);
+            @SuppressWarnings("unchecked")
             Collection<Invoice> col = (Collection<Invoice>)qry.list();
             return col.toArray(new Invoice[col.size()]);
         } catch (HibernateException e) {
@@ -371,7 +358,6 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Invoice[] getInvoices(Date fromDate, Date toDate) {
         try {
             Query qry = pm.createQuery(
@@ -381,6 +367,7 @@ public class EasyguestSession {
                     + " order by i.dateCreated desc");
             qry.setDate("f", new java.sql.Date(fromDate.getTime()));
             qry.setDate("t", new java.sql.Date(toDate.getTime()));
+            @SuppressWarnings("unchecked")
             Collection<Invoice> col = (Collection<Invoice>)qry.list();
             return col.toArray(new Invoice[col.size()]);
         } catch (HibernateException e) {
@@ -388,7 +375,6 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Invoice[] getInvoices(String firstName, String lastName,
             String company) {
         try {
@@ -401,6 +387,7 @@ public class EasyguestSession {
             qry.setString("f", firstName + "%");
             qry.setString("l", lastName + "%");
             qry.setString("c", company + "%");
+            @SuppressWarnings("unchecked")
             Collection<Invoice> col = (Collection<Invoice>)qry.list();
             return col.toArray(new Invoice[col.size()]);
         } catch (HibernateException e) {
@@ -408,19 +395,15 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Room getRoom(Hotel hotel, int number) {
         try {
             Query qry = pm.createQuery("from Room as r"
                     + " where r.hotel=:h and r.number=:n");
             qry.setParameter("h", hotel);
             qry.setInteger("n", number);
-            List<Room> col = (List<Room>)qry.list();
-            if (col.isEmpty()) {
-                return null;
-            } else {
-                return col.get(0);
-            }
+            @SuppressWarnings("unchecked")
+            Room result = (Room)qry.uniqueResult();
+            return result;
         } catch (HibernateException e) {
             throw new RuntimeException(e);
         }
@@ -428,7 +411,7 @@ public class EasyguestSession {
 
     public Room[] getFreeRooms(Hotel hotel, Date fromDate, Date toDate) {
         try {
-            List<Room> col = new ArrayList<Room>();
+            List<Room> col = new ArrayList<>();
             col.addAll(hotel.getRooms());
             Query qry = pm.createQuery("select distinct r.room"
                     + " from Reservation as r"
@@ -468,7 +451,6 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Reservation[] getArrivals(Hotel hotel, Date atDate) { 
         try {
             Query qry = pm.createQuery("from Reservation as r"
@@ -477,6 +459,7 @@ public class EasyguestSession {
                 + " and r.status=0");
             qry.setParameter("h", hotel);
             qry.setDate("d", new java.sql.Date(atDate.getTime()));
+            @SuppressWarnings("unchecked")
             Collection<Reservation> col = (Collection<Reservation>)qry.list();
             return col.toArray(new Reservation[col.size()]);
         } catch (HibernateException e) {
@@ -484,7 +467,6 @@ public class EasyguestSession {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public Reservation[] getDepartures(Hotel hotel, Date atDate) { 
         try {
             Query qry = pm.createQuery("from Reservation as r"
@@ -493,6 +475,7 @@ public class EasyguestSession {
                 + " and r.status=0");
             qry.setParameter("h", hotel);
             qry.setDate("d", new java.sql.Date(atDate.getTime()));
+            @SuppressWarnings("unchecked")
             Collection<Reservation> col = (Collection<Reservation>)qry.list();
             return col.toArray(new Reservation[col.size()]);
         } catch (HibernateException e) {

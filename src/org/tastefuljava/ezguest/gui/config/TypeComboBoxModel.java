@@ -1,8 +1,3 @@
-/*
- * TypeComboBoxModel.java
- *
- * Created on 2 december 2002, 14:01
- */
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.RoomType;
@@ -14,36 +9,40 @@ import javax.swing.ComboBoxModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class TypeComboBoxModel extends AbstractListModel
         implements ComboBoxModel, TableModelListener {
+    private final List<RoomType> roomTypes = new ArrayList<>();
     private RoomType selection = null;
-    private List<RoomType> roomTypes = new ArrayList<RoomType>();
     private RoomTypeTableModel roomTypeModel;
 
     public TypeComboBoxModel(EasyguestSession sess, RoomTypeTableModel roomTypeModel) {
         this.roomTypeModel = roomTypeModel;
         roomTypes.addAll(sess.getExtent(RoomType.class));        
         this.roomTypeModel = roomTypeModel;
-        roomTypeModel.addTableModelListener(this);
+        initialize(roomTypeModel);
+    }
+
+    private void initialize(RoomTypeTableModel roomTypeModel1) {
+        roomTypeModel1.addTableModelListener(this);
     }
     
+    @Override
     public int getSize() {
         return roomTypes.size();
     }
 
+    @Override
     public Object getElementAt(int index) {
         return roomTypes.get(index);
     }
 
+    @Override
     public Object getSelectedItem() {
         return selection;
     }
 
+    @Override
     public void setSelectedItem(Object anItem) {
         selection = null;
         for (RoomType rt: roomTypes) {
@@ -75,6 +74,7 @@ public class TypeComboBoxModel extends AbstractListModel
         }
     }
     
+    @Override
     public void tableChanged(TableModelEvent e) {
         switch (e.getType()) {
             case TableModelEvent.DELETE:

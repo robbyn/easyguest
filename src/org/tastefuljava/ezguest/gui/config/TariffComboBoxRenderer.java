@@ -1,31 +1,20 @@
-/*
- * TariffComboBoxRenderer.java
- *
- * Created on 1 december 2002, 18:57
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.components.ColorIcon;
 import org.tastefuljava.ezguest.data.Tariff;
 import java.awt.Component;
-import javax.swing.ComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
 
-/**
- *
- * @author  denis
- */
-public class TariffComboBoxRenderer implements ListCellRenderer {
-       
-    private JLabel label = new JLabel();
+public class TariffComboBoxRenderer implements ListCellRenderer {   
+    private final JLabel label = new JLabel();
 
     public TariffComboBoxRenderer() {
        label.setOpaque(true);
     } 
     
+    @Override
     public Component getListCellRendererComponent(JList list, Object value,
            int index, boolean isSelected, boolean hasFocus) {       
         if (isSelected) {

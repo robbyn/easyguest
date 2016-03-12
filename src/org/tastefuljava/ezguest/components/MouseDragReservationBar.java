@@ -1,25 +1,16 @@
-/*
- * MousDrag.java
- *
- * Created on 28 janvier 2003, 12:03
- */
-
 package org.tastefuljava.ezguest.components;
+
 import org.tastefuljava.ezguest.gui.ReservationDialog;
 import java.util.Date;
 import java.awt.Graphics;
 import java.awt.Color;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  denis
- */
 public class MouseDragReservationBar implements MouseDragger {
-    private CalendarView kV;
-    private int xo;
+    private final CalendarView kV;
+    private final int xo;
+    private final int roomIndex;
     private int xp;
-    private int roomIndex;
 
     public MouseDragReservationBar(CalendarView calendarView, int xo, int yo) {
         this.kV = calendarView;
@@ -28,6 +19,7 @@ public class MouseDragReservationBar implements MouseDragger {
         this.roomIndex = yo/(kV.getCellHeight()+1);
     }
 
+    @Override
     public void mouseDragged(int x, int y) {
         int xi = x/(kV.getCellWidth()+1);
         if (xi != xp) {
@@ -40,6 +32,7 @@ public class MouseDragReservationBar implements MouseDragger {
         }
     }
 
+    @Override
     public void mouseReleased(int x, int y) {       
         if (xp != xo) {
             int xl = xo < xp ? xo : xp;
@@ -54,6 +47,7 @@ public class MouseDragReservationBar implements MouseDragger {
         }
     }
 
+    @Override
     public void drawFeedback(Graphics g) {
         int left = xo < xp ? xo : xp;
         int right = xo > xp ? xo : xp;

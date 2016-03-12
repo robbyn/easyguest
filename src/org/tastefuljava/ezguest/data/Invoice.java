@@ -1,9 +1,3 @@
-/*
- * Invoice.java
- *
- * Created on 02 December 2002, 17:25
- */
-
 package org.tastefuljava.ezguest.data;
 
 import java.util.ArrayList;
@@ -11,9 +5,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author  Maurice Perry
- */
 public class Invoice {
     public static final int STATUS_OPEN  = 0;
     public static final int STATUS_PAYED = 1;
@@ -23,9 +14,8 @@ public class Invoice {
     private Date dateCreated;
     private Hotel hotel;
     private Customer customer;
-    private List<Reservation> reservations = new ArrayList<Reservation>();
-    private List<InvoiceItem> items = new ArrayList<InvoiceItem>();
-
+    private final List<Reservation> reservations = new ArrayList<>();
+    private final List<InvoiceItem> items = new ArrayList<>();
 
     public Invoice() {
     }

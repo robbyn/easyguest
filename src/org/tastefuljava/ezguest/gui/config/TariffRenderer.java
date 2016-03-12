@@ -1,9 +1,3 @@
-/*
- * TariffRenderer.java
- *
- * Created on 26 novembre 2002, 01:39
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.components.ColorButton;
@@ -15,21 +9,18 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 
-/**
- *
- * @author  denis
- */
 public class TariffRenderer implements TableCellRenderer {
     public static final int COLUMN_NAME  = 0;
     public static final int COLUMN_FACTOR  = 1;
     public static final int COLUMN_COLOR = 2;
 
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public TariffRenderer() {
        label.setOpaque(true);
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
            boolean isSelected, boolean hasFocus, int rowIndex, int columnIndex) {
         if (isSelected) {

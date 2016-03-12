@@ -1,9 +1,3 @@
-/*
- * TariffConfigDialog.java
- *
- * Created on 09 March 2003, 19:49
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.gui.DateCellEditor;
@@ -13,30 +7,19 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import org.tastefuljava.ezguest.session.EasyguestSession;
 import java.util.Date;
-import java.awt.Color;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.JColorChooser;
 import javax.swing.JFrame;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.tastefuljava.ezguest.components.ColorIcon;
 import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
 import org.tastefuljava.ezguest.util.Util;
-//import gui.config.TariffComboBoxModel;
-//import gui.config.TariffComboBoxRenderer;
 
-/**
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class TariffConfigDialog extends javax.swing.JDialog {
-    private static final Log log = LogFactory.getLog(TariffConfigDialog.class);
+    private static final Log LOG = LogFactory.getLog(TariffConfigDialog.class);
 
-    private EasyguestSession sess;
     private TariffTableModel tariffTableModel;
     private TariffRenderer tariffRenderer;
     private PeriodTableModel periodTableModel;
@@ -46,7 +29,6 @@ public class TariffConfigDialog extends javax.swing.JDialog {
 
     public TariffConfigDialog(JFrame parent, EasyguestSession sess) {
         super(parent, true);
-        this.sess = sess;
         initComponents();
         sess.begin();
         try {
@@ -80,11 +62,10 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         } finally {
             sess.end();
         }
-        setLocation(parent.getX()+(parent.getWidth()-getWidth())/2,
-                parent.getY()+(int)(parent.getWidth()*(0.618/1.618))-getHeight()/2);        
         
         tariffTable.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 tariffChanged(tariffTable.getSelectedRow());
             }
@@ -92,10 +73,17 @@ public class TariffConfigDialog extends javax.swing.JDialog {
         
         periodTable.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 periodChanged(periodTable.getSelectedRow());
             }
         });
+        initialize(parent);        
+    }
+
+    private void initialize(JFrame parent) {
+        setLocation(parent.getX()+(parent.getWidth()-getWidth())/2,
+                parent.getY()+(int)(parent.getWidth()*(0.618/1.618))-getHeight()/2);        
         Util.clearWidthAll(this, JTextField.class);
         Util.clearWidthAll(this, JComboBox.class);
         pack();

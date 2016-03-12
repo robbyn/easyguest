@@ -1,9 +1,3 @@
-/*
- * InvoiceItemTableModel.java
- *
- * Created on 02 February 2003, 17:42
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import org.tastefuljava.ezguest.data.InvoiceItem;
@@ -15,10 +9,6 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class InvoiceItemTableModel extends AbstractTableModel {
     public static final int COLUMN_ARTICLE  = 0;
@@ -28,8 +18,8 @@ public class InvoiceItemTableModel extends AbstractTableModel {
 
     public static final int COLUMN_COUNT = 4;
 
-    private EasyguestSession sess;
-    private List<InvoiceItem> items = new ArrayList<InvoiceItem>();
+    private final EasyguestSession sess;
+    private final List<InvoiceItem> items = new ArrayList<>();
     private Invoice invoice;
 
     public InvoiceItemTableModel(EasyguestSession sess) {
@@ -81,14 +71,17 @@ public class InvoiceItemTableModel extends AbstractTableModel {
         fireTableRowsInserted(row, row);
     }
 
+    @Override
     public int getColumnCount() {
         return COLUMN_COUNT;
     }
 
+    @Override
     public int getRowCount() {
         return items.size()+1;
     }
 
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_ARTICLE:
@@ -103,6 +96,7 @@ public class InvoiceItemTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Class getColumnClass(int index) {
         switch (index) {
             case COLUMN_ARTICLE:
@@ -115,10 +109,12 @@ public class InvoiceItemTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex != COLUMN_AMOUNT;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex >= items.size()) {
             return null;
@@ -128,15 +124,16 @@ public class InvoiceItemTableModel extends AbstractTableModel {
             case COLUMN_ARTICLE:
                 return item.getArticle();
             case COLUMN_PRICE:
-                return new Double(item.getPrice());
+                return item.getPrice();
             case COLUMN_QUANTITY:
-                return new Double(item.getQuantity());
+                return item.getQuantity();
             case COLUMN_AMOUNT:
-                return new Double(item.getAmount());
+                return item.getAmount();
         }
         return null;
     }
 
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         boolean isNew = rowIndex >= items.size();
         InvoiceItem item;
@@ -163,11 +160,11 @@ public class InvoiceItemTableModel extends AbstractTableModel {
                     }
                     break;
                 case COLUMN_PRICE:
-                    item.setPrice(((Double)value).doubleValue());
+                    item.setPrice((Double)value);
                     fireTableCellUpdated(rowIndex, COLUMN_AMOUNT);
                     break;
                 case COLUMN_QUANTITY:
-                    item.setQuantity(((Double)value).doubleValue());
+                    item.setQuantity((Double)value);
                     fireTableCellUpdated(rowIndex, COLUMN_AMOUNT);
                     break;
             }

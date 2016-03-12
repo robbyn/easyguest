@@ -1,16 +1,9 @@
-/*
- * MultilineToolTipUI.java
- *
- * Created on 14. mars 2003, 13:52
- */
-
 package org.tastefuljava.ezguest.components;
 import java.util.List;
 import java.util.ArrayList;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
-import java.awt.Toolkit;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 import javax.swing.JToolTip;
@@ -19,11 +12,8 @@ import javax.swing.LookAndFeel;
 import javax.swing.plaf.ComponentUI;
 import javax.swing.plaf.ToolTipUI;
 
-/**
- * @author  Maurice Perry
- */
 public class MultilineToolTipUI extends ToolTipUI {
-    private static MultilineToolTipUI INSTANCE = new MultilineToolTipUI();
+    private static final MultilineToolTipUI INSTANCE = new MultilineToolTipUI();
     private static final int INSET = 3;
 
     private MultilineToolTipUI() {
@@ -39,16 +29,19 @@ public class MultilineToolTipUI extends ToolTipUI {
         return INSTANCE;
     }
 
+    @Override
     public void installUI(JComponent c) {
         LookAndFeel.installColorsAndFont(c, "ToolTip.background",
                 "ToolTip.foreground", "ToolTip.font");
         LookAndFeel.installBorder(c, "ToolTip.border");
     }
 
+    @Override
     public void uninstallUI(JComponent c) {
         LookAndFeel.uninstallBorder(c);
     }
 
+    @Override
     public Dimension getPreferredSize(JComponent c) {
         Font font = c.getFont();
         FontMetrics fm = c.getFontMetrics(font);
@@ -65,6 +58,7 @@ public class MultilineToolTipUI extends ToolTipUI {
         return new Dimension(width + 2*INSET, height + 2*INSET);
     }
 
+    @Override
     public void paint(Graphics g, JComponent c) {
         Font font = c.getFont();
         FontMetrics fm = c.getFontMetrics(font);
@@ -83,7 +77,7 @@ public class MultilineToolTipUI extends ToolTipUI {
     }
 
     private static String[] breakupLines(String s) {
-        List<String> lines = new ArrayList<String>();
+        List<String> lines = new ArrayList<>();
         int begin = 0;
         while (true) {
             int end = s.indexOf('\n', begin);

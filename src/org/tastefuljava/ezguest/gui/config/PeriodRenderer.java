@@ -10,20 +10,17 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 
-/**
- *
- * @author  denis
- */
 public class PeriodRenderer implements TableCellRenderer {
     public static final int COLUMN_FROMDATE  = 0;
     public static final int COLUMN_TODATE  = 1;
     public static final int COLUMN_TARIFF = 2;
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public PeriodRenderer() {
        label.setOpaque(true);
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
            boolean isSelected, boolean hasFocus, int rowIndex, int columnIndex) {
         if (isSelected) {
@@ -49,7 +46,8 @@ public class PeriodRenderer implements TableCellRenderer {
                     label.setText("");
                     label.setIcon(null);
                 } else {
-                    label.setText(tariff.getName() + " (" + tariff.getFactor() + ")");
+                    label.setText(
+                            tariff.getName() + " (" + tariff.getFactor() + ")");
                     label.setIcon(new ColorIcon(tariff.getColor()));
                 }
                 return label;

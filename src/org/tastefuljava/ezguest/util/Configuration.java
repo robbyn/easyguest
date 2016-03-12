@@ -1,9 +1,3 @@
-/*
- * Configuration.java
- *
- * Created on 05 March 2005, 13:35
- */
-
 package org.tastefuljava.ezguest.util;
 
 import java.awt.Color;
@@ -20,13 +14,12 @@ import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author Maurice Perry
- */
 public class Configuration implements Serializable {
     private static final long serialVersionUID = 3257852077869839415L;
+    private static final Log LOG = LogFactory.getLog(Configuration.class);
 
     private static final DecimalFormat NUMBER_FORMAT;
     
@@ -37,7 +30,7 @@ public class Configuration implements Serializable {
         NUMBER_FORMAT.setDecimalFormatSymbols(symbols);
     }
 
-    private Properties props = new Properties();
+    private final Properties props = new Properties();
     private File file;
     
     public Configuration(File file) {
@@ -55,21 +48,15 @@ public class Configuration implements Serializable {
     public void load() throws IOException {
         props.clear();
         if (file.exists()) {
-            InputStream in = new FileInputStream(file);
-            try {
+            try (InputStream in = new FileInputStream(file)) {
                 props.load(in);
-            } finally {
-                in.close();
             }
         }
     }
 
     public void store() throws IOException {
-        OutputStream out = new FileOutputStream(file);
-        try {
+        try (OutputStream out = new FileOutputStream(file)) {
             props.store(out, "configuration");
-        } finally {
-            out.close();
         }
     }
 
@@ -79,7 +66,7 @@ public class Configuration implements Serializable {
             String value = getString(name, null);
             return isBlank(value) ? def : value.equals("true");
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             return def;
         }
     }
@@ -96,7 +83,7 @@ public class Configuration implements Serializable {
             String value = getString(name, null);
             return isBlank(value) ? def : Short.parseShort(value);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             return def;
         }
     }
@@ -107,7 +94,7 @@ public class Configuration implements Serializable {
             String value = getString(name, null);
             return isBlank(value) ? def : Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             return def;
         }
     }
@@ -118,7 +105,7 @@ public class Configuration implements Serializable {
             String value = getString(name, null);
             return isBlank(value) ? def : Long.parseLong(value);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             return def;
         }
     }
@@ -129,7 +116,7 @@ public class Configuration implements Serializable {
             String value = getString(name, null);
             return isBlank(value) ? def : Float.parseFloat(value);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             return def;
         }
     }

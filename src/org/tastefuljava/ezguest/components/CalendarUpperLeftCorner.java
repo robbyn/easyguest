@@ -1,9 +1,3 @@
-/*
- * Corner.java
- *
- * Created on 8 janvier 2003, 02:43
- */
-
 package org.tastefuljava.ezguest.components;
 
 import org.tastefuljava.ezguest.util.Util;
@@ -11,20 +5,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JComponent;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class CalendarUpperLeftCorner extends JComponent {
-    private CalendarView kV;
+    private final CalendarView kV;
 
     public CalendarUpperLeftCorner(CalendarView calendarView) {
         this.kV = calendarView;
     }
 
+    @Override
     public void paintComponent(Graphics g) {
-        int cellWidth = kV.getCellWidth();
         int cellHeight = kV.getCellHeight();
         int width = getWidth();
         int height = getHeight();
@@ -65,5 +55,3 @@ public class CalendarUpperLeftCorner extends JComponent {
         g.drawLine(right-1, top, right-1, bottom);
     }
 }
-
-

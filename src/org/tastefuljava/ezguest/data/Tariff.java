@@ -1,9 +1,3 @@
-/*
- * Tariff.java
- *
- * Created on 18 June 2002, 17:58
- */
-
 package org.tastefuljava.ezguest.data;
 
 import java.awt.Color;
@@ -11,26 +5,12 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * @author  maurice
- */
 public class Tariff {
     private int id;
     private String name;
     private double factor;
     private Color color;
-    private Set<Period> periods = new HashSet<Period>();
-
-    public int hashCode() {
-        return id & 0x7FFFFFFF;
-    }
-
-    public boolean equals(Object other) {
-        if (!(other instanceof Tariff)) {
-            return false;
-        }
-        return id == ((Tariff)other).id;
-    }
+    private final Set<Period> periods = new HashSet<>();
 
     public int getId() {
         return id;
@@ -86,5 +66,18 @@ public class Tariff {
 
     public void removeAllPeriods() {
         periods.clear();
+    }
+
+    @Override
+    public int hashCode() {
+        return id & 0x7FFFFFFF;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Tariff)) {
+            return false;
+        }
+        return id == ((Tariff)other).id;
     }
 }

@@ -1,14 +1,5 @@
-/*
- * InvoiceItem.java
- *
- * Created on 02 December 2002, 17:32
- */
-
 package org.tastefuljava.ezguest.data;
 
-/**
- * @author  Maurice Perry
- */
 public class InvoiceItem {
     private int id;
     private Invoice invoice;

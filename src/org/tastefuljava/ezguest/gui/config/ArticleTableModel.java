@@ -1,9 +1,3 @@
-/*
- * ArticleTableModel.java
- *
- * Created on 03 November 2002, 15:19
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.util.Util;
@@ -15,10 +9,6 @@ import java.util.ArrayList;
 import javax.swing.KeyStroke;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class ArticleTableModel extends AbstractTableModel {
     public static final int COLUMN_CODE   = 0;
@@ -28,9 +18,9 @@ public class ArticleTableModel extends AbstractTableModel {
 
     private static final int COLUMN_COUNT = 4;
 
-    private EasyguestSession sess;
+    private final EasyguestSession sess;
+    private final List<Article> articles = new ArrayList<>();
     private int categoryId;
-    private List<Article> articles = new ArrayList<Article>();
 
     public ArticleTableModel(EasyguestSession sess) {
         this.sess = sess;
@@ -68,14 +58,17 @@ public class ArticleTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public int getColumnCount() {
         return COLUMN_COUNT;
     }
 
+    @Override
     public int getRowCount() {
         return articles.size();
     }
 
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_CODE:
@@ -90,6 +83,7 @@ public class ArticleTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex >= articles.size()) {
             return null;
@@ -101,13 +95,14 @@ public class ArticleTableModel extends AbstractTableModel {
             case COLUMN_LABEL:
                 return article.getLabel();
             case COLUMN_PRICE:
-                return new Double(article.getPrice());
+                return article.getPrice();
             case COLUMN_KEYB:
                 return article.getKeyStroke();
         }
         return null;
     }
 
+    @Override
     public Class getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case COLUMN_CODE:
@@ -122,10 +117,12 @@ public class ArticleTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }
 
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         boolean isNew = rowIndex >= articles.size();
         Article article;

@@ -1,38 +1,20 @@
-/*
- * TranslationTableModel.java
- *
- * Created on 01 december 2002, 17:39
- */
-
 package org.tastefuljava.ezguest.gui.translator;
 
 import org.tastefuljava.ezguest.util.Util;
-import org.tastefuljava.ezguest.session.EasyguestSession;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.StringTokenizer;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.InputStream;
 import java.util.Properties;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class TranslationTableModel extends AbstractTableModel {
     public static final int COLUMN_KEY_LANG         = 0;
@@ -48,16 +30,14 @@ public class TranslationTableModel extends AbstractTableModel {
     public TranslationTableModel() {
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try {
-            InputStream in = cl.getResourceAsStream("resources.properties");
-            try {
+            try (InputStream in = cl.getResourceAsStream(
+                    "/org/tastefuljava/ezguest/resources.properties")) {
                 defaultProps.load(in);
-            } finally {
-                in.close();
             }
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
-        keys = new ArrayList<String>();
+        keys = new ArrayList<>();
         for (Object o: defaultProps.keySet()) {
             keys.add((String)o);
         }
@@ -69,21 +49,18 @@ public class TranslationTableModel extends AbstractTableModel {
         File dir = new File("lib/translation");
         file = new File(dir, "resources_" + language + ".properties");
         if (file.isFile()) {
-            InputStream in = new FileInputStream(file);
-            try {
+            try (InputStream in = new FileInputStream(file)) {
                 translatProps.load(in);
-            } finally {
-                in.close();
             }
         }
-        Set<String> set = new HashSet<String>();
+        Set<String> set = new HashSet<>();
         for (Object o: defaultProps.keySet()) {
             set.add((String)o);
         }
         for (Object o: translatProps.keySet()) {
             set.add((String)o);
         }
-        keys = new ArrayList<String>(set);
+        keys = new ArrayList<>(set);
         Collections.sort(keys);
         hasChanged = false;
         fireTableDataChanged();
@@ -91,8 +68,7 @@ public class TranslationTableModel extends AbstractTableModel {
 
     public void save() throws IOException {
         if (file != null && hasChanged) {
-            OutputStream out = new FileOutputStream(file);
-            try {
+            try (OutputStream out = new FileOutputStream(file)) {
                 for (String key: keys) {
                     if (!defaultProps.containsKey(key)) {
                         translatProps.remove(key);
@@ -100,16 +76,16 @@ public class TranslationTableModel extends AbstractTableModel {
                 }
                 translatProps.store(out, "EasyGuest translation");
                 hasChanged = false;
-            } finally {
-                out.close();
             }
         }
     }
 
+    @Override
     public int getColumnCount() {
         return 3;
     }
 
+    @Override
     public int getRowCount() {
         return keys.size();
     }
@@ -122,6 +98,7 @@ public class TranslationTableModel extends AbstractTableModel {
          return !translatProps.containsKey(keys.get(row));
      }
     
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_KEY_LANG:
@@ -134,6 +111,7 @@ public class TranslationTableModel extends AbstractTableModel {
         return null;
     }        
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         String key = keys.get(rowIndex);
         switch (columnIndex) {
@@ -147,6 +125,7 @@ public class TranslationTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Class getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case COLUMN_KEY_LANG:
@@ -159,6 +138,7 @@ public class TranslationTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case COLUMN_KEY_LANG:
@@ -172,6 +152,7 @@ public class TranslationTableModel extends AbstractTableModel {
         return false;
     }
 
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case COLUMN_KEY_LANG:

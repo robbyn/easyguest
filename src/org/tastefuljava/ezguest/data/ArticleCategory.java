@@ -3,20 +3,12 @@ package org.tastefuljava.ezguest.data;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- *
- * @author  maurice
- */
 public class ArticleCategory {
     private int id;
     private String name;
     private ArticleCategory parent;
-    private Set<ArticleCategory> subCategories = new HashSet<ArticleCategory>();
-    private Set<Article> articles = new HashSet<Article>();
-
-    public String toString() {
-        return name;
-    }
+    private final Set<ArticleCategory> subCategories = new HashSet<>();
+    private final Set<Article> articles = new HashSet<>();
 
     public int getId() {
         return id;
@@ -54,5 +46,10 @@ public class ArticleCategory {
 
     public Set<Article> getArticles() {
         return articles;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

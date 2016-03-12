@@ -1,9 +1,3 @@
-/*
- * Hotel.java
- *
- * Created on 23 June 2002, 16:56
- */
-
 package org.tastefuljava.ezguest.data;
 
 import java.awt.image.BufferedImage;
@@ -17,10 +11,6 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import org.hibernate.Hibernate;
 
-/**
- *
- * @author  maurice
- */
 public class Hotel {
     private int id;
     private String rate;
@@ -38,7 +28,7 @@ public class Hotel {
     private String web;
     private String logoName;
     private Blob logoBytes;
-    private Map<Integer,Room> rooms = new HashMap<Integer,Room>();
+    private final Map<Integer,Room> rooms = new HashMap<>();
 
     public int getId() {
         return id;

@@ -1,28 +1,14 @@
-/*
- * ListenerList.java
- *
- * Created on 23 February 2006, 22:40
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.tastefuljava.ezguest.util;
 
 import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- *
- * @author Maurice Perry
- */
 public class ListenerList implements InvocationHandler {
-    private List<Object> listeners = new ArrayList<Object>();
+    private final List<Object> listeners = new ArrayList<>();
 
     public ListenerList() {
     }

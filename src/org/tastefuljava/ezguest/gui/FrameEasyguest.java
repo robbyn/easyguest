@@ -1,8 +1,3 @@
-/*
- * FrameEasyguest.java
- *
- * Created on 17 juin 2002, 22:06
- */
 package org.tastefuljava.ezguest.gui;
 
 import org.tastefuljava.ezguest.gui.config.RoomConfigDialog;
@@ -16,6 +11,7 @@ import java.lang.reflect.InvocationTargetException;
 import javax.swing.DefaultListModel;
 import java.awt.Dimension;
 import java.awt.CardLayout;
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -30,23 +26,19 @@ import org.tastefuljava.ezguest.util.Configuration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author  Denis Trimaille
- */
 @SuppressWarnings("serial")
 public class FrameEasyguest extends javax.swing.JFrame {
-    private static final Log log = LogFactory.getLog(FrameEasyguest.class);
+    private static final Log LOG = LogFactory.getLog(FrameEasyguest.class);
 
-    private boolean initialized;
-    private Configuration conf;
-    private EasyguestSession sess;
+    private boolean initialized = false;
+    private final Configuration conf;
+    private final EasyguestSession sess;
     private DefaultListModel rubricListModel; 
     private HelpSet mainHS = null;
     private HelpBroker mainHB;
-    private Map<String,Class<? extends JPanel>> classMap
-            = new HashMap<String,Class<? extends JPanel>>();
-    private Map<String,JPanel> panelMap = new HashMap<String,JPanel>();
+    private final Map<String,Class<? extends JPanel>> classMap
+            = new HashMap<>();
+    private final Map<String,JPanel> panelMap = new HashMap<>();
 
     public FrameEasyguest(Configuration conf, EasyguestSession sess) {
         this.conf = conf;
@@ -59,12 +51,18 @@ public class FrameEasyguest extends javax.swing.JFrame {
         addPanel("map", MapPanel.class);
         addPanel("invoice", InvoicePanel.class);
         listRubrics.setSelectedIndex(-1);
-        pack();      
+        initialize(conf);
+        createHelp();
+        listRubrics.setSelectedIndex(0);
+        initialized = true;
+    }
+
+    private void initialize(Configuration conf1) throws HeadlessException {
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
-        int width = conf.getInt("main.width", size.width*4/5);
-        int height = conf.getInt("main.height", size.height*4/5);
-        int left = conf.getInt("main.left", (size.width-width)/2);
-        int top = conf.getInt("main.top", (size.height-height)/2);
+        int width = conf1.getInt("main.width", size.width*4/5);
+        int height = conf1.getInt("main.height", size.height*4/5);
+        int left = conf1.getInt("main.left", (size.width-width)/2);
+        int top = conf1.getInt("main.top", (size.height-height)/2);
         if (width > size.width) {
             width = size.width;
         }
@@ -78,21 +76,19 @@ public class FrameEasyguest extends javax.swing.JFrame {
             top = size.height-height;
         }
         setBounds(left, top, width, height);
-        createHelp();
-        listRubrics.setSelectedIndex(0);
-        initialized = true;
+        pack();
     }
 
     private void createHelp() {
 	try {
 	    URL url = HelpSet.findHelpSet(null, "help/ezh");
             mainHS = new HelpSet(null, url);
-	} catch (Exception ee) {
-            ee.printStackTrace();
+	} catch (Exception e) {
+            LOG.error(e.getMessage(), e);
 	    return;
-	} catch (ExceptionInInitializerError ex) {
-	    System.err.println("initialization error:");
-	    ex.getException().printStackTrace();
+	} catch (ExceptionInInitializerError e) {
+            LOG.error(e.getMessage(), e);
+            throw e;
 	}
 	mainHB = mainHS.createHelpBroker();
     }        

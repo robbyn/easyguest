@@ -1,12 +1,3 @@
-/*
- * ArticleCategoryTreeModel.java
- *
- * Created on October 3, 2007, 12:48 PM
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.ArticleCategory;
@@ -23,17 +14,13 @@ import org.tastefuljava.ezguest.session.EasyguestSession;
 import org.tastefuljava.ezguest.util.ListenerList;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author maurice
- */
 public class ArticleCategoryTreeModel implements TreeModel {
     private static final Log LOG = LogFactory.getLog(ArticleCategoryTreeModel.class);
 
-    private ListenerList listeners = new ListenerList();
-    private TreeModelListener notifier
+    private final ListenerList listeners = new ListenerList();
+    private final TreeModelListener notifier
             = listeners.getNotifier(TreeModelListener.class);
-    private EasyguestSession sess;
+    private final EasyguestSession sess;
     private Node root;
 
     public ArticleCategoryTreeModel(EasyguestSession sess) {
@@ -47,6 +34,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
         return -1;
     }
 
+    @Override
     public Object getRoot() {
         if (root == null) {
             sess.begin();
@@ -67,6 +55,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
         return root;
     }
 
+    @Override
     public Object getChild(Object object, int i) {
         Node node = (Node)object;
         if (node.children != null) {
@@ -80,6 +69,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
         return node.children.get(i);
     }
 
+    @Override
     public int getChildCount(Object object) {
         Node node = (Node)object;
         if (node.children == null) {
@@ -93,10 +83,12 @@ public class ArticleCategoryTreeModel implements TreeModel {
         return node.children.size();
     }
 
+    @Override
     public boolean isLeaf(Object object) {
         return false;
     }
 
+    @Override
     public void valueForPathChanged(TreePath treePath, Object value) {
         Node node = (Node)treePath.getLastPathComponent();
         if (value instanceof String && !value.equals(node.name)) {
@@ -164,6 +156,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
         notifyRemoved(node);
     }
 
+    @Override
     public int getIndexOfChild(Object parent, Object child) {
         if (parent == null || child == null) {
             return -1;
@@ -175,10 +168,12 @@ public class ArticleCategoryTreeModel implements TreeModel {
         return node.children.indexOf(child);
     }
 
+    @Override
     public void addTreeModelListener(TreeModelListener listener) {
         listeners.addListener(listener);
     }
 
+    @Override
     public void removeTreeModelListener(TreeModelListener listener) {
         listeners.removeListener(listener);
     }
@@ -207,7 +202,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
 
     private void requireChildren(Node node, ArticleCategory cat) {
         if (node.children == null) {
-            node.children = new ArrayList<Node>();
+            node.children = new ArrayList<>();
             for (ArticleCategory child: cat.getSubCategories()) {
                 node.children.add(new Node(node, child.getId(), child.getName()));
             }
@@ -223,7 +218,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
         }
         if (index < 0) {
             notifier.treeNodesRemoved(new TreeModelEvent(this, node.getPath()));
-        } else {
+        } else if (parent != null) {
             notifier.treeNodesRemoved(new TreeModelEvent(this, parent.getPath(), 
                     new int[] {index}, new Object[] {node}));
         }
@@ -241,7 +236,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
         }
         if (index < 0) {
             notifier.treeNodesInserted(new TreeModelEvent(this, node.getPath()));
-        } else {
+        } else if (parent != null) {
             notifier.treeNodesInserted(new TreeModelEvent(this, parent.getPath(), 
                     new int[] {index}, new Object[] {node}));
         }
@@ -265,14 +260,17 @@ public class ArticleCategoryTreeModel implements TreeModel {
             this.name = name;
         }
 
+        @Override
         public int hashCode() {
             return id & 0x7FFFFFFF;
         }
 
+        @Override
         public boolean equals(Object other) {
             return other instanceof Node && ((Node)other).id == id;
         }
 
+        @Override
         public String toString() {
             return name;
         }
@@ -297,6 +295,7 @@ public class ArticleCategoryTreeModel implements TreeModel {
             return nodes;
         }
 
+        @Override
         public int compareTo(Node other) {
             int res = name.compareTo(other.name);
             if (res != 0) {

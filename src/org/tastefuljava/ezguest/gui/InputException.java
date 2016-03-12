@@ -1,22 +1,11 @@
-/*
- * InputException.java
- *
- * Created on 28 January 2003, 20:18
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import java.util.Locale;
 import java.text.MessageFormat;
 import java.awt.Component;
-import java.awt.Container;
 import javax.swing.JOptionPane;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class InputException extends Exception {
     private Component comp;

@@ -1,10 +1,3 @@
-/*
- * CalendarView.java
- *
- * Created on 24 September 2002, 16:20
- */
-
-
 package org.tastefuljava.ezguest.components;
 
 import java.awt.AWTEvent;
@@ -40,16 +33,10 @@ import javax.swing.SwingConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- *
- * @author  Maurice Perry
- * @author Denis Trimaille
- *
- */
 @SuppressWarnings("serial")
 public class CalendarView extends JComponent implements Scrollable,
                                                 MouseListener, MouseMotionListener {
-    private static Log log = LogFactory.getLog(CalendarView.class);
+    private static final Log LOG = LogFactory.getLog(CalendarView.class);
 
     private int cellWidth = 22;
     private int cellHeight = 18;
@@ -67,16 +54,18 @@ public class CalendarView extends JComponent implements Scrollable,
     private int xpos, oxpos, oypos;
     private MouseDragger mouseDragger = null;
     private boolean filterActive = false;
-    private boolean dndActive = false;
     private Date filterMinDate;
     private Date filterMaxDate;
     private boolean showRoomType;
     private boolean showRoomPrice;
-    private Color[] statusColor = new Color[Reservation.STATUS_COUNT];
+    private final Color[] statusColor = new Color[Reservation.STATUS_COUNT];
 
     public CalendarView() {
         firstDate = Util.today();
-        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        initialize();
+    }
+
+    private void initialize() {
         addMouseListener(this);
         addMouseMotionListener(this);
         enableEvents(AWTEvent.MOUSE_EVENT_MASK|AWTEvent.MOUSE_MOTION_EVENT_MASK);
@@ -311,6 +300,7 @@ public class CalendarView extends JComponent implements Scrollable,
         reservations = null;
     }
 
+    @Override
     public void invalidate() {
         clearReservations();
     }
@@ -322,6 +312,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     public Dimension getPreferredSize() {
         int rowCount = getRowCount();
         Dimension dim = new Dimension(getWidth(), rowCount*(cellHeight+1));
@@ -334,10 +325,12 @@ public class CalendarView extends JComponent implements Scrollable,
         return dim;
     }
 
+    @Override
     public Dimension getPreferredScrollableViewportSize() {
         return getPreferredSize();
     }
 
+    @Override
     public int getScrollableBlockIncrement(Rectangle visibleRect,
             int orientation, int direction) {
         if (orientation == SwingConstants.HORIZONTAL) {
@@ -347,6 +340,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     public int getScrollableUnitIncrement(Rectangle visibleRect,
             int orientation, int direction) {
         if (orientation == SwingConstants.HORIZONTAL) {
@@ -356,10 +350,12 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     public boolean getScrollableTracksViewportHeight() {
         return false;
     }
 
+    @Override
     public boolean getScrollableTracksViewportWidth() {
         return false;
     }
@@ -380,6 +376,7 @@ public class CalendarView extends JComponent implements Scrollable,
         return indexForDate(date)*(cellWidth+1);
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             e.consume();
@@ -408,6 +405,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     public void mouseDragged(MouseEvent e) {
         e.consume();
         if (mouseDragger != null) {
@@ -415,6 +413,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         e.consume();
         if (mouseDragger != null) {
@@ -424,6 +423,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     public void mouseMoved(MouseEvent e) {
         int x = e.getX();
         int y = e.getY();
@@ -449,12 +449,15 @@ public class CalendarView extends JComponent implements Scrollable,
         setCursor(Cursor.getDefaultCursor());
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             e.consume();
@@ -541,6 +544,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
+    @Override
     protected void paintComponent(Graphics g) {
         int width = getWidth();
         int height = getHeight();
@@ -612,7 +616,7 @@ public class CalendarView extends JComponent implements Scrollable,
         }
     }
 
-    private final void requireReservations() {
+    private void requireReservations() {
         if (reservations == null) {
             int days = (getWidth()+cellWidth)/(cellWidth+1);
             Date maxTime = Util.addDays(firstDate, days);
@@ -676,7 +680,7 @@ public class CalendarView extends JComponent implements Scrollable,
             return "";
         } else {
             Customer cust = invoice.getCustomer();
-            StringBuffer buf = new StringBuffer();
+            StringBuilder buf = new StringBuilder();
             String s = cust.getFirstName();
             if (s != null) {
                 buf.append(' ');
@@ -697,7 +701,7 @@ public class CalendarView extends JComponent implements Scrollable,
     }
 
     private String reservationTooltip(Reservation res) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         Invoice invoice = res.getInvoice();
         if (invoice != null) {
             Customer cust = invoice.getCustomer();
@@ -740,6 +744,7 @@ public class CalendarView extends JComponent implements Scrollable,
         return null;
     }
 
+    @Override
     public Point getToolTipLocation(MouseEvent event) {
         Reservation res = getReservationAt(event.getX(), event.getY());
         if (res != null) {
@@ -749,6 +754,7 @@ public class CalendarView extends JComponent implements Scrollable,
         return null;
     }
 
+    @Override
     public String getToolTipText(MouseEvent event) {
         Reservation res = getReservationAt(event.getX(), event.getY());
         if (res != null) {

@@ -24,9 +24,6 @@ import org.hibernate.Query;
 public class DemoDb {
     private static Log log = LogFactory.getLog(DemoDb.class);
 
-    /**
-     * @param args the command line arguments
-     */
     public static void create() {
         EasyguestSession sess = new EasyguestSession();
         try {
@@ -606,8 +603,7 @@ public class DemoDb {
                 System.out.println("name: " + tarif.getName());
                 System.out.println("factor: " + tarif.getFactor());
                 System.out.println("");
-                for (Iterator it = sess.getExtent(Period.class).iterator(); it.hasNext(); ) {
-                    Period period = (Period)it.next();
+                for (Period period : sess.getExtent(Period.class)) {
                     System.out.println("fromDate: " + Util.date2str(period.getFromDate()));
                     System.out.println("toDate: " + Util.date2str(period.getToDate()));
                     System.out.println("tarif code: " + period.getTariff().getId());
@@ -621,8 +617,7 @@ public class DemoDb {
                 System.out.println("base price: " + rt.getBasePrice());
                 System.out.println("description: " + rt.getDescription());
                 System.out.println("");
-                for (Iterator it = sess.getExtent(Room.class).iterator(); it.hasNext(); ) {
-                    Room r = (Room)it.next();
+                for (Room r : sess.getExtent(Room.class)) {
                     System.out.println("hotel: " + r.getHotel());
                     System.out.println("number: " + r.getNumber());
                     System.out.println("type code: " + r.getType().getId());
@@ -643,9 +638,7 @@ public class DemoDb {
                     System.out.println("code: " + tarif.getId());
                     System.out.println("name: " + tarif.getName());
                     System.out.println("factor: " + tarif.getFactor());
-                    Iterator it2 = tarif.getPeriods().iterator();
-                    while (it2.hasNext()) {
-                        Period period = (Period)it2.next();
+                    for (Period period : tarif.getPeriods()) {
                         System.out.println("  fromDate: " + Util.date2str(period.getFromDate()));
                         System.out.println("  toDate: " + Util.date2str(period.getToDate()));
                     }
@@ -665,9 +658,7 @@ public class DemoDb {
                     System.out.println("code: " + tarif.getId());
                     System.out.println("name: " + tarif.getName());
                     System.out.println("factor: " + tarif.getFactor());
-                    Iterator it2 = tarif.getPeriods().iterator();
-                    while (it2.hasNext()) {
-                        Period period = (Period)it2.next();
+                    for (Period period : tarif.getPeriods()) {
                         System.out.println("  fromDate: " + Util.date2str(period.getFromDate()));
                         System.out.println("  toDate: " + Util.date2str(period.getToDate()));
                     }
@@ -675,23 +666,20 @@ public class DemoDb {
                 }
                 System.out.println("");
                     System.out.println("RESERVATION : ");
-                    for (Iterator it = sess.getExtent(Reservation.class).iterator(); it.hasNext(); ) {
-                        Reservation r = (Reservation)it.next();
-                        System.out.println("  room : " + r.getRoom());
-                        System.out.println("  fromDate: " + Util.date2str(r.getFromDate()));
-                        System.out.println("  toDate: " + Util.date2str(r.getToDate()));
-                        System.out.println("  status : " + r.getStatus());
-                        System.out.println("---");
-                    }
+                for (Reservation r : sess.getExtent(Reservation.class)) {
+                    System.out.println("  room : " + r.getRoom());
+                    System.out.println("  fromDate: " + Util.date2str(r.getFromDate()));
+                    System.out.println("  toDate: " + Util.date2str(r.getToDate()));
+                    System.out.println("  status : " + r.getStatus());
+                    System.out.println("---");
+                }
             } finally {
                 sess.end();
             }
         } catch (Exception e) {
             e.printStackTrace(System.out);
         } finally {
-            if (sess != null) {
-                sess.close();
-            }
+            sess.close();
         }
     }
 }

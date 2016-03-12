@@ -1,9 +1,3 @@
-/*
- * InvoiceRenderer.java
- *
- * Created on 27 January 2003, 22:23
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import java.awt.Font;
@@ -13,22 +7,19 @@ import javax.swing.JLabel;
 import javax.swing.table.TableCellRenderer;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  Maurice Perry
- */
 public class InvoiceRenderer implements TableCellRenderer {
     public static final int COLUMN_CUSTOMER = InvoiceTableModel.COLUMN_CUSTOMER;
     public static final int COLUMN_ID = InvoiceTableModel.COLUMN_ID;
     public static final int COLUMN_DATECREATED = InvoiceTableModel.COLUMN_DATECREATED;
     public static final int COLUMN_AMOUNT = InvoiceTableModel.COLUMN_AMOUNT;
 
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public InvoiceRenderer() {
         label.setOpaque(true);
     }
 
+    @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
             boolean isSelected, boolean hasFocus, int row, int column) {
         if (isSelected) {
@@ -59,7 +50,7 @@ public class InvoiceRenderer implements TableCellRenderer {
                 break;
             case COLUMN_AMOUNT:
                 label.setFont(font);
-                label.setText(value == null ? "" : Util.dbl2str(((Double)value).doubleValue()));
+                label.setText(value == null ? "" : Util.dbl2str(((Double)value)));
                 label.setHorizontalAlignment(JLabel.RIGHT);
                 break;
         }

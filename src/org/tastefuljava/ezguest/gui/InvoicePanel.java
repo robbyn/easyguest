@@ -1,24 +1,14 @@
-/*
- * InvoicePanel.java
- *
- * Created on 27 January 2003, 00:11
- */
-
 package org.tastefuljava.ezguest.gui;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import org.tastefuljava.ezguest.data.Invoice;
 import org.tastefuljava.ezguest.data.Customer;
 import org.tastefuljava.ezguest.data.Article;
 import java.lang.String;
-import java.util.Iterator;
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Date;
-import java.util.Collection;
 import java.util.MissingResourceException;
 import java.util.Map;
 import java.util.HashMap;
@@ -42,26 +32,24 @@ import org.tastefuljava.ezguest.session.EasyguestSession;
 import org.tastefuljava.ezguest.reports.CollectionDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class InvoicePanel extends javax.swing.JPanel {
-    private EasyguestSession sess;
+    private static final Log LOG = LogFactory.getLog(InvoicePanel.class);
+
+    private final EasyguestSession sess;
     private InvoiceTableModel tableModel;
-    private InvoiceReservationTableModel reservationTableModel;
-    private InvoiceItemTableModel itemTableModel;
+    private final InvoiceReservationTableModel reservationTableModel;
+    private final InvoiceItemTableModel itemTableModel;
     private Invoice invoice;
     private Customer customer;
-    private Map<KeyStroke,Article> keyStrokeMap;
+    private final Map<KeyStroke,Article> keyStrokeMap;
 
     public InvoicePanel(EasyguestSession sess) {
         this.sess = sess;
@@ -97,6 +85,7 @@ public class InvoicePanel extends javax.swing.JPanel {
         invoiceTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         invoiceTable.getSelectionModel().addListSelectionListener(
                 new ListSelectionListener() {
+            @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
                     int row = invoiceTable.getSelectedRow();
@@ -108,7 +97,7 @@ public class InvoicePanel extends javax.swing.JPanel {
         fillTitleCombo();
         fillCountryCombo();
         setInvoice(null);
-        keyStrokeMap = new HashMap<KeyStroke,Article>();
+        keyStrokeMap = new HashMap<>();
         sess.begin();
         try {
             for (Article article: sess.getExtent(Article.class)) {
@@ -119,6 +108,10 @@ public class InvoicePanel extends javax.swing.JPanel {
         } finally {
             sess.end();
         }
+        initialize();
+    }
+
+    private void initialize() {
         Util.clearWidthAll(this, JTextField.class);
         Util.clearWidthAll(this, JComboBox.class);
     }
@@ -127,9 +120,8 @@ public class InvoicePanel extends javax.swing.JPanel {
         if (invoice != null) {
             try {
                 JasperPrint jp;
-                InputStream in = InvoicePanel.class.getResourceAsStream(
-                        "/reports/invoice.jasper");
-                try {
+                try (InputStream in = InvoicePanel.class.getResourceAsStream(
+                        "/reports/invoice.jasper")) {
                     sess.begin();
                     try {
                         invoice = sess.getObjectById(Invoice.class, invoice.getId());
@@ -141,15 +133,11 @@ public class InvoicePanel extends javax.swing.JPanel {
                     } finally {
                         sess.end();
                     }
-                } finally {
-                    in.close();
                 }
                 PreviewDialog dlg = new PreviewDialog(getFrame(), jp);
                 dlg.setVisible(true);
-            } catch (JRException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (JRException | IOException e) {
+                LOG.error(e.getMessage(), e);
             }
         }
     }
@@ -158,9 +146,8 @@ public class InvoicePanel extends javax.swing.JPanel {
         if (invoice != null) {
             try {
                 JasperPrint jp;
-                InputStream in = InvoicePanel.class.getResourceAsStream(
-                        "/reports/invoice.jasper");
-                try {
+                try (InputStream in = InvoicePanel.class.getResourceAsStream(
+                        "/reports/invoice.jasper")) {
                     sess.begin();
                     try {
                         invoice = sess.getObjectById(Invoice.class, invoice.getId());
@@ -172,20 +159,16 @@ public class InvoicePanel extends javax.swing.JPanel {
                     } finally {
                         sess.end();
                     }
-                } finally {
-                    in.close();
                 }
                 JasperPrintManager.printReport(jp, true);
-            } catch (JRException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (JRException | IOException e) {
+                 LOG.error(e.getMessage(), e);
             }
         }
     }
 
     private Map getParameters() {
-        Map<String,Object> params = new HashMap<String,Object>();
+        Map<String,Object> params = new HashMap<>();
         params.put("sess", sess);
         return params;
     }
@@ -198,7 +181,8 @@ public class InvoicePanel extends javax.swing.JPanel {
     private void fillTitleCombo() {
         for(int i = 0; ; i++) {
             try {
-                title.addItem(Util.getResource("dialog.reservation.titleperson." + i));
+                title.addItem(Util.getResource(
+                        "dialog.reservation.titleperson." + i));
             } catch (MissingResourceException e) {
                 break;
             }
@@ -222,7 +206,8 @@ public class InvoicePanel extends javax.swing.JPanel {
 
     private void setInvoice(Invoice newValue) {
         invoice = newValue;
-        reservationTableModel.setInvoiceId(newValue == null ? -1 : newValue.getId());
+        reservationTableModel.setInvoiceId(
+                newValue == null ? -1 : newValue.getId());
         itemTableModel.setInvoice(newValue);
         if (invoice == null) {
             setCustomer(null);
@@ -313,11 +298,6 @@ public class InvoicePanel extends javax.swing.JPanel {
         return null;
     }
 
-    /** This method is called from within the constructor to
-     * initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is
-     * always regenerated by the Form Editor.
-     */
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -1115,14 +1095,14 @@ public class InvoicePanel extends javax.swing.JPanel {
                 }
                 tableModel.queryRoom(number);
             } else if (searchById.isSelected()) {
-                int id;
+                int sid;
                 try {
-                    id = Integer.parseInt(searchId.getText());
+                    sid = Integer.parseInt(searchId.getText());
                 } catch (NumberFormatException e) {
                     throw new InputException(searchId, "error.badnumber",
                             searchId.getText());
                 }
-                tableModel.query(id);
+                tableModel.query(sid);
             } else if (searchByCustomer.isSelected()) {
                 tableModel.query(searchFirstName.getText(),
                         searchLastName.getText(), searchCompany.getText());
@@ -1144,11 +1124,12 @@ public class InvoicePanel extends javax.swing.JPanel {
                 tableModel.query(fromDate, toDate);
             }
         } catch (InputException e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage(), e);
             e.showMessage(this);
         } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, Util.getResource("error.search"));
+            LOG.error(e.getMessage(), e);
+            JOptionPane.showMessageDialog(this,
+                    Util.getResource("error.search"));
         }
     }//GEN-LAST:event_searchActionPerformed
 

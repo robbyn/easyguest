@@ -1,9 +1,3 @@
-/*
- *CalendarColumnHeader.java
- *
- * Created on 7 janvier 2003, 17:28
- */
-
 package org.tastefuljava.ezguest.components;
 
 import org.tastefuljava.ezguest.data.Period;
@@ -25,56 +19,54 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.tastefuljava.ezguest.session.EasyguestSession;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class CalendarColumnHeader extends JComponent
         implements MouseListener, MouseMotionListener  {
-    private static Log log = LogFactory.getLog(CalendarColumnHeader.class);
+    private static final Log LOG = LogFactory.getLog(CalendarColumnHeader.class);
 
-    private static String[] tabDays;
-    private static String[] tabMonths;
+    private static final String[] DAYS_OF_WEEK;
+    private static final String[] MONTHS;
 
     static {
-        tabDays = new String[7];
+        DAYS_OF_WEEK = new String[7];
         for (int i = 1; i <= 7; ++i) {
-            tabDays[i-1] = Util.getResource("day-of-week." + i);
+            DAYS_OF_WEEK[i-1] = Util.getResource("day-of-week." + i);
         }
-        tabMonths = new String[12];
+        MONTHS = new String[12];
         for (int i = 1; i <= 12; ++i) {
-            tabMonths[i-1] = Util.getResource("month." + i);
+            MONTHS[i-1] = Util.getResource("month." + i);
         }
     }
 
-    private EasyguestSession sess;
-    private CalendarView kV;
+    private final EasyguestSession sess;
+    private final CalendarView kV;
     private MouseDragger mouseDragger;
     private Period periods[];
 
     public CalendarColumnHeader(CalendarView calendarView) {
         this.kV = calendarView;
         this.sess = kV.getSession();
-        addMouseListener(this);
-        addMouseMotionListener(this);
+        initialize();
     }
 
     public CalendarView getCalendarView() {
         return kV;
     }
 
+    @Override
     public void invalidate() {
         periods = null;
         repaint();
     }
 
+    @Override
     public Dimension getPreferredSize() {
         Dimension dim = kV.getPreferredSize();
         dim.height = 5*kV.getCellHeight()+5;
         return dim;
     }
 
+    @Override
     public void mouseMoved(MouseEvent e) {
         if (kV.isFilterActive()) {
             int x = e.getX();
@@ -94,6 +86,7 @@ public class CalendarColumnHeader extends JComponent
         }
     }
 
+    @Override
     public void mousePressed(MouseEvent e) {
         if (e.getButton() == MouseEvent.BUTTON1) {
             e.consume();
@@ -117,6 +110,7 @@ public class CalendarColumnHeader extends JComponent
         }
     }
 
+    @Override
     public void mouseDragged(MouseEvent e) {
         if (mouseDragger != null) {
             e.consume();
@@ -124,6 +118,7 @@ public class CalendarColumnHeader extends JComponent
         }
     }
 
+    @Override
     public void mouseReleased(MouseEvent e) {
         if (mouseDragger != null) {
             e.consume();
@@ -133,15 +128,19 @@ public class CalendarColumnHeader extends JComponent
         }
     }
 
+    @Override
     public void mouseEntered(MouseEvent e) {
     }
 
+    @Override
     public void mouseExited(MouseEvent e) {
     }
 
+    @Override
     public void mouseClicked(MouseEvent e) {
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         sess.begin();
         try {
@@ -180,7 +179,7 @@ public class CalendarColumnHeader extends JComponent
                 yt += cellHeight+1;
                 CalendarView.drawCentered(g, x, yt, cellWidth, cellHeight, Integer.toString(d));
                 yt += cellHeight+1;
-                CalendarView.drawCentered(g, x, yt, cellWidth, cellHeight, tabDays[dw-1].substring(0,1));
+                CalendarView.drawCentered(g, x, yt, cellWidth, cellHeight, DAYS_OF_WEEK[dw-1].substring(0,1));
                 x += cellWidth;
                 date = Util.addDays(date, 1);
 
@@ -196,7 +195,7 @@ public class CalendarColumnHeader extends JComponent
                     g.setColor(Color.gray);
                     g.drawLine(x, ym, x, bottom);
                     ++x;
-                    String s = tabMonths[month-1] + " " + year;
+                    String s = MONTHS[month-1] + " " + year;
                     g.setColor(Color.black);
                     CalendarView.drawCentered(g, lastMonthPos, ym, x-lastMonthPos-1, cellHeight, s);
                     lastMonthPos = x;
@@ -204,7 +203,7 @@ public class CalendarColumnHeader extends JComponent
                     year = y;
                 }
             }
-            String s = tabMonths[month-1] + " " + year;
+            String s = MONTHS[month-1] + " " + year;
             g.setColor(Color.black);
             CalendarView.drawCentered(g, lastMonthPos, top+(cellHeight+1), right-lastMonthPos, cellHeight, s);
             if (mouseDragger != null) {
@@ -292,8 +291,8 @@ public class CalendarColumnHeader extends JComponent
             int yt = 2*(cellHeight+1);
             for (int i = 0; i < periods.length; ++i) {
                 Period period = periods[i];
-                if (log.isDebugEnabled()) {
-                    log.debug(period.getFromDate() + " - " + period.getToDate());
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug(period.getFromDate() + " - " + period.getToDate());
                 }
                 if (period.getTariff() != null) {
                     int d1 = Util.daysBetween(kV.getFirstDate(), period.getFromDate());
@@ -305,5 +304,10 @@ public class CalendarColumnHeader extends JComponent
                 }
             }
         }
+    }
+
+    private void initialize() {
+        addMouseListener(this);
+        addMouseMotionListener(this);
     }
 }

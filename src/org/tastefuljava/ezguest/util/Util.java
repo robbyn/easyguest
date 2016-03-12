@@ -1,17 +1,9 @@
-/*
- * Util.java
- *
- * Created on 01 November 2002, 15:42
- */
-
 package org.tastefuljava.ezguest.util;
 
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-import java.text.SimpleDateFormat;
-import java.text.DecimalFormat;
 import java.util.Locale;
 import java.util.Date;
 import java.util.Calendar;
@@ -24,11 +16,6 @@ import java.text.MessageFormat;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-
-/**
- *
- * @author  Maurice Perry
- */
 public class Util {
     public static final int SATURDAY = Calendar.SATURDAY;
     public static final int SUNDAY = Calendar.SUNDAY;
@@ -37,8 +24,8 @@ public class Util {
 
     public static final TimeZone UTC = TimeZone.getTimeZone("UTC");
 
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-    private static DecimalFormat decimalFormat = new DecimalFormat("0.00");
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private static final DecimalFormat decimalFormat = new DecimalFormat("0.00");
 
     private static Locale locale = Locale.getDefault();
 
@@ -185,7 +172,7 @@ public class Util {
     }
 
     public static String toString(KeyStroke ks) {
-        StringBuffer buf = new StringBuffer();
+        StringBuilder buf = new StringBuilder();
         if (ks != null) {
             if (ks.getModifiers() != 0) {
                 buf.append(KeyEvent.getKeyModifiersText(ks.getModifiers()));

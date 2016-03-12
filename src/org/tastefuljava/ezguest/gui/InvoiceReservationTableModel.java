@@ -1,9 +1,3 @@
-/*
- * InvoiceReservationTableModel.java
- *
- * Created on 31 January 2003, 16:34
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import org.tastefuljava.ezguest.data.Reservation;
@@ -15,9 +9,6 @@ import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class InvoiceReservationTableModel extends AbstractTableModel {
     public static final int COLUMN_FROMDATE   = 0;
@@ -27,11 +18,10 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
 
     public static final int COLUMN_COUNT = 4;
 
-    private EasyguestSession sess;
+    private final EasyguestSession sess;
+    private final List<Reservation> reservations = new ArrayList<>();
+    private final List<Double> amounts = new ArrayList<>();
     private Invoice invoice;
-
-    private List<Reservation> reservations = new ArrayList<Reservation>();
-    private List<Double> amounts = new ArrayList<Double>();
 
     public InvoiceReservationTableModel(EasyguestSession sess) {
         this.sess = sess;
@@ -46,7 +36,8 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
             if (invoice != null) {
                 for (Reservation res: invoice.getReservations()) {
                     reservations.add(res);
-                    amounts.add(res.getRoom() == null ? new Double(0) : new Double(sess.getAmount(res)));
+                    amounts.add(
+                            res.getRoom() == null ? 0.0 : sess.getAmount(res));
                 }
             }
         } finally {
@@ -55,14 +46,17 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    @Override
     public int getColumnCount() {
         return COLUMN_COUNT;
     }
 
+    @Override
     public int getRowCount() {
         return reservations.size()+1;
     }
 
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_FROMDATE:
@@ -77,6 +71,7 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Class getColumnClass(int index) {
         switch (index) {
             case COLUMN_FROMDATE:
@@ -90,10 +85,12 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex != COLUMN_AMOUNT;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex >= reservations.size()) {
             return null;
@@ -112,6 +109,7 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         boolean isNew = rowIndex >= reservations.size();
         Reservation res = null;
@@ -138,7 +136,7 @@ public class InvoiceReservationTableModel extends AbstractTableModel {
                     break;
                 case COLUMN_ROOMNUMBER:
                     Integer ival = (Integer)value;
-                    res.setRoom(sess.getRoom(sess.getHotel(), ival.intValue()));
+                    res.setRoom(sess.getRoom(sess.getHotel(), ival));
                     break;
             }
             sess.commit();

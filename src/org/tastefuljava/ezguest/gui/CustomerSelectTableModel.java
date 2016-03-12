@@ -1,19 +1,9 @@
-/*
- * ReservationSearchTableModel.java
- *
- * Created on 12 december 2002, 23:46
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import org.tastefuljava.ezguest.data.Customer;
 import javax.swing.table.AbstractTableModel;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class CustomerSelectTableModel extends AbstractTableModel {
     public static final int COLUMN_NAME  = 0;
@@ -31,10 +21,12 @@ public class CustomerSelectTableModel extends AbstractTableModel {
         fireTableDataChanged();
     }
 
+    @Override
     public int getColumnCount() {
         return 4;
     }
 
+    @Override
     public int getRowCount() {
         return customers.length;
     }
@@ -43,6 +35,7 @@ public class CustomerSelectTableModel extends AbstractTableModel {
         return customers[row];
     }
 
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_NAME:
@@ -57,6 +50,7 @@ public class CustomerSelectTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {        
         Customer customer = customers[rowIndex];
         switch (columnIndex) {
@@ -72,6 +66,7 @@ public class CustomerSelectTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Class getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case COLUMN_NAME:

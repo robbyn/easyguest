@@ -1,22 +1,16 @@
-/*
- * DateToday.java
- *
- * Created on 28 february 2003, 16:08
- */
-
 package org.tastefuljava.ezguest.components;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-/**
- *
- * @author  denis
- */
 @SuppressWarnings("serial")
-public class DateToday extends JLabel implements Runnable {
+public class DateToday extends JLabel {
+    private static final Timer TIMER = new Timer();
+
     private volatile Thread timer;
     private String format = "dd/MM/yyyy";
     private SimpleDateFormat formatter = new SimpleDateFormat(format);
@@ -26,9 +20,22 @@ public class DateToday extends JLabel implements Runnable {
         start();
     }
 
-    public void start() {
-        timer = new Thread(this);
-        timer.start();
+    public final void start() {
+        TIMER.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        update();
+                    }
+                });
+            }
+        }, 300000, 300000);
+    }
+
+    public final void stop() {
+        timer.interrupt();
     }
 
     public String getFormat() {
@@ -41,26 +48,6 @@ public class DateToday extends JLabel implements Runnable {
             formatter = new SimpleDateFormat(newValue);
         }
         update();
-    }
-
-    public void stop() {
-        timer.interrupt();
-    }
-
-    public void run() {
-        Thread me = Thread.currentThread();
-        while (timer == me) {
-            try {
-                Thread.currentThread().sleep(300000);
-            } catch (InterruptedException e) {
-                break;
-            }
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    update();
-                }
-            });
-        }
     }
 
     private void update() {

@@ -1,20 +1,11 @@
-/*
- * MouseDragFilter.java
- *
- * Created on 14 March 2003, 23:42
- */
-
 package org.tastefuljava.ezguest.components;
 import java.awt.Graphics;
 
-/**
- *
- * @author  Maurice Perry
- */
 public class MouseDragFilter implements MouseDragger {
-    private CalendarColumnHeader cch;
-    private CalendarView kv;
-    private int xo, xp;
+    private final CalendarColumnHeader cch;
+    private final CalendarView kv;
+    private final int xo;
+    private int xp;
 
     public MouseDragFilter(CalendarColumnHeader cch, int x) {
         this.cch = cch;
@@ -23,11 +14,13 @@ public class MouseDragFilter implements MouseDragger {
         xp = xo;
     }
 
+    @Override
     public void mouseDragged(int x, int y) {
         xp = x/(kv.getCellWidth()+1);
         cch.repaint();
     }
 
+    @Override
     public void mouseReleased(int x, int y) {
         if (xp == xo) {
             kv.clearFilter();
@@ -38,6 +31,7 @@ public class MouseDragFilter implements MouseDragger {
         }
     }
 
+    @Override
     public void drawFeedback(Graphics g) {
         int cellWidth = kv.getCellWidth();
         int xl = (xo < xp ? xo : xp)*(cellWidth+1) + cellWidth/2;

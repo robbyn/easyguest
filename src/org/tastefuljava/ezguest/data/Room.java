@@ -1,17 +1,5 @@
-/*
- * Room.java
- *
- * Created on 23 June 2002, 16:50
- */
-
 package org.tastefuljava.ezguest.data;
 
-import java.io.Serializable;
-
-/**
- *
- * @author  maurice
- */
 public class Room implements Comparable<Room> {
     private int id;
     private Hotel hotel;
@@ -56,6 +44,7 @@ public class Room implements Comparable<Room> {
         }
     }
 
+    @Override
     public int compareTo(Room other) {
         if (hotel.getId() < other.hotel.getId()) {
             return -1;

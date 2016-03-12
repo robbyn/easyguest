@@ -1,9 +1,3 @@
-/*
- * RubricRenderer.java
- *
- * Created on 20 february 2003, 16:16
- */
-
 package org.tastefuljava.ezguest.gui;
 
 import java.awt.Component;
@@ -17,20 +11,17 @@ import javax.swing.JList;
 import javax.swing.border.EmptyBorder;
 import org.tastefuljava.ezguest.util.Util;
 
-/**
- * @author  denis
- */
 @SuppressWarnings("serial")
 public class RubricListCellRenderer extends DefaultListCellRenderer {
-    private static Map<String,ImageIcon> iconCache
-            = new HashMap<String,ImageIcon>();
-    private JLabel label = new JLabel();
+    private static final Map<String,ImageIcon> iconCache = new HashMap<>();
+    private final JLabel label = new JLabel();
 
     public static ImageIcon getIcon(String name) {
         ImageIcon icon = iconCache.get(name);
         if (icon == null) {
             String descr = Util.getResource("main.tab." + name);
-            URL url = RubricListCellRenderer.class.getResource("/org/tastefuljava/ezguest/images/" + name + ".png");
+            URL url = RubricListCellRenderer.class.getResource(
+                    "/org/tastefuljava/ezguest/images/" + name + ".png");
             icon = new ImageIcon(url, descr);
             iconCache.put(name, icon);
         }
@@ -44,6 +35,7 @@ public class RubricListCellRenderer extends DefaultListCellRenderer {
         label.setBorder(new EmptyBorder(4, 4, 4, 4));
     }
 
+    @Override
     public Component getListCellRendererComponent(JList list, Object value,
             int index, boolean isSelected, boolean cellHasFocus) {
         if (isSelected) {

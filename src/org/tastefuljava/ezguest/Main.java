@@ -1,14 +1,5 @@
 package org.tastefuljava.ezguest;
 
-/*
- * Main.java
- *
- * Created on 01 November 2002, 14:47
- */
-
-/**
- * @author  Maurice Perry
- */
 import org.tastefuljava.ezguest.gui.SplashWindow;
 import org.tastefuljava.ezguest.gui.FrameEasyguest;
 import org.tastefuljava.ezguest.gui.config.HotelConfigDialog;
@@ -20,9 +11,13 @@ import org.tastefuljava.ezguest.components.MultilineToolTipUI;
 import javax.swing.UIManager;
 import java.util.Locale;
 import javax.swing.JOptionPane;
+import javax.swing.UnsupportedLookAndFeelException;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.tastefuljava.ezguest.session.EasyguestSession;
 
 public class Main {
+    private static final Log LOG = LogFactory.getLog(Main.class);
 
     public static void main(String args[]) {
         try {
@@ -66,8 +61,9 @@ public class Main {
             }
             FrameEasyguest frame = new FrameEasyguest(conf, sess);
             frame.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException | ClassNotFoundException | InstantiationException
+                | IllegalAccessException | UnsupportedLookAndFeelException e) {
+            LOG.error(e.getMessage(), e);
             System.exit(-1);
         }
     }
@@ -86,8 +82,8 @@ public class Main {
             conf.setBoolean("first-launch", false);
             try {
                 conf.store();
-            } catch(IOException io) {
-                io.printStackTrace();
+            } catch(IOException e) {
+                LOG.error(e.getMessage(), e);
             }    
         }                
     }

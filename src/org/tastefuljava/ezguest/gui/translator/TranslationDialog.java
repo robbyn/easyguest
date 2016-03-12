@@ -1,9 +1,3 @@
-/*
- * TranslationDialog.java
- *
- * Created on 02 March 2003, 01:27
- */
-
 package org.tastefuljava.ezguest.gui.translator;
 
 
@@ -13,16 +7,10 @@ import java.util.Locale;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableCellEditor;
-import org.tastefuljava.ezguest.gui.translator.TranslationTableModel;
 
-
-/**
- *
- * @authors Maurice Perry and Denis Trimaille
- */
 @SuppressWarnings("serial")
 public class TranslationDialog extends javax.swing.JDialog {
-    private TranslationTableModel translationTableModel;
+    private final TranslationTableModel translationTableModel;
 
     public TranslationDialog(Frame parent) throws IOException {
         super(parent, true);
@@ -36,6 +24,10 @@ public class TranslationDialog extends javax.swing.JDialog {
                 new TranslationRenderer(translationTableModel));
         translationTable.setModel(translationTableModel);
 
+        initialize(parent);
+    }
+
+    private void initialize(Frame parent) throws IOException {
         getRootPane().setDefaultButton(close);
         setLocation(parent.getX()+(parent.getWidth()-getWidth())/2,
                 parent.getY()+(int)(parent.getWidth()*(0.618/1.618))-getHeight()/2);

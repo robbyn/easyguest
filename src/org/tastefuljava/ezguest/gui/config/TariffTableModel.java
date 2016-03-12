@@ -1,9 +1,3 @@
-/*
- * TariffTableModel.java
- *
- * Created on 03 November 2002, 15:19
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.Period;
@@ -15,29 +9,26 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import org.tastefuljava.ezguest.session.EasyguestSession;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class TariffTableModel extends AbstractTableModel {
     public static final int COLUMN_NAME  = 0;
     public static final int COLUMN_FACTOR  = 1;
     public static final int COLUMN_COLOR = 2;
 
-    private EasyguestSession sess;
-    private Period period;
-    private List<Tariff> tariffs = new ArrayList<Tariff>();
+    private final EasyguestSession sess;
+    private final List<Tariff> tariffs = new ArrayList<>();
 
     public TariffTableModel(EasyguestSession sess) {
         this.sess = sess;
         tariffs.addAll(sess.getExtent(Tariff.class));
     }
 
+    @Override
     public int getColumnCount() {
         return 3;
     }
 
+    @Override
     public int getRowCount() {
         return tariffs.size()+1;
     }
@@ -46,6 +37,7 @@ public class TariffTableModel extends AbstractTableModel {
         return index < tariffs.size() ? tariffs.get(index) : null;
     }
 
+    @Override
     public String getColumnName(int index) {
         switch (index) {
             case COLUMN_NAME:
@@ -58,6 +50,7 @@ public class TariffTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if (rowIndex >= tariffs.size()) {
             return null;
@@ -67,13 +60,14 @@ public class TariffTableModel extends AbstractTableModel {
             case COLUMN_NAME:
                 return tariff.getName();
             case COLUMN_FACTOR:
-                return new Double(tariff.getFactor());
+                return tariff.getFactor();
             case COLUMN_COLOR:
                 return tariff.getColor();
         }
         return null;
     }
 
+    @Override
     public Class getColumnClass(int columnIndex) {
         switch (columnIndex) {
             case COLUMN_NAME:
@@ -86,10 +80,12 @@ public class TariffTableModel extends AbstractTableModel {
         return null;
     }
 
+    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
     }
 
+    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
         boolean isNew = rowIndex >= tariffs.size();
         Tariff tariff;

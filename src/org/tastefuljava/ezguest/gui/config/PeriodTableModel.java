@@ -1,9 +1,3 @@
-/*
- * PeriodTableModel.java
- *
- * Created on 03 November 2002, 15:19
- */
-
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.util.Util;
@@ -19,10 +13,6 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-/**
- *
- * @author  Maurice Perry
- */
 @SuppressWarnings("serial")
 public class PeriodTableModel extends AbstractTableModel
         implements TableModelListener {
@@ -33,10 +23,10 @@ public class PeriodTableModel extends AbstractTableModel
     private static final Comparator<Period> FROMDATE_ORDER
             = new FromDateComparator();
 
-    private EasyguestSession sess;
-    private TariffTableModel tariffModel;
+    private final EasyguestSession sess;
+    private final TariffTableModel tariffModel;
+    private final List<Period> periods = new ArrayList<>();
     private Tariff tariff;
-    private List<Period> periods = new ArrayList<Period>();
 
     public PeriodTableModel(EasyguestSession sess,
             TariffTableModel tariffModel) {

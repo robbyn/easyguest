@@ -1,32 +1,19 @@
-/*
- * TypeComboBoxRenderer.java
- *
- * Created on 2 december 2002, 14:10
- */
 package org.tastefuljava.ezguest.gui.config;
 
 import org.tastefuljava.ezguest.data.RoomType;
-import java.awt.Color;
 import java.awt.Component;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.ListCellRenderer;
-import javax.swing.SwingConstants;
 
-/**
- *
- * @author  denis
- */
 public class TypeComboBoxRenderer implements ListCellRenderer {
-       
-    private JLabel label = new JLabel();
+    private final JLabel label = new JLabel();
 
     public TypeComboBoxRenderer() {
        label.setOpaque(true);
     } 
     
+    @Override
     public Component getListCellRendererComponent(JList list, Object value,
            int index, boolean isSelected, boolean hasFocus) {       
         if (isSelected) {
