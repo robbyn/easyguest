@@ -15,6 +15,6 @@
     <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
     <!-- Echo all executed SQL to stdout -->
     <property name="show_sql">true</property>
-    <mapping resource="data/easyguest.hbm.xml"/>
+    <mapping resource="org/tastefuljava/ezguest/data/easyguest.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

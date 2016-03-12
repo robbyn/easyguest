@@ -16,9 +16,6 @@ import org.tastefuljava.ezguest.data.Customer;
 import org.tastefuljava.ezguest.data.Invoice;
 import org.tastefuljava.ezguest.data.InvoiceItem;
 import org.tastefuljava.ezguest.data.Article;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.ArrayList;
@@ -50,7 +47,8 @@ public class EasyguestSession {
     public EasyguestSession() {
         try {
             Configuration cfg = new Configuration();
-            cfg.configure();
+            cfg.configure(
+                    EasyguestSession.class.getResource("hibernate.cfg.xml"));
             sf = cfg.buildSessionFactory();
         } catch (HibernateException e) {
             throw new RuntimeException(e);
